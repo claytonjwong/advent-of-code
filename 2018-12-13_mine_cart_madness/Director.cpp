@@ -37,11 +37,8 @@ const vector< string > Director::stateMachine_ =
 Director::Direction Director::getNextDirection( const Director::Direction& dir, char mapped ) noexcept
 {
     size_t row = static_cast< int >( dir ), col{ mapping_.find( mapped ) };
-    assert( 0 <= row && row < numeric_limits<short>::max() && 0 <= col && col < numeric_limits<short>::max());
     char next{ stateMachine_[ row ][ col ] };
-    auto nextDirection{ static_cast< Direction >( next - '0' ) };
-    assert( 0 <= next - '0' && next - '0' <= 3);
-    return nextDirection;
+    return static_cast< Direction >( next - '0' );
 }
 
 
