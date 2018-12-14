@@ -24,6 +24,4 @@ struct PositionHash
     }
 };
 
-
-
 std::ostream& operator<<( std::ostream& stream, const Position& position ) noexcept;

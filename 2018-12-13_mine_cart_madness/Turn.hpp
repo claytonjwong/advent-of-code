@@ -13,6 +13,13 @@ public:
 
     const static int left{ 0 }, straight{ 1 }, right{ 2 };
 
+    Turn() = default;
+    ~Turn() = default;
+    Turn( const Turn& ) = default;
+    Turn( Turn&& ) = default;
+    Turn& operator=( const Turn& ) = default;
+    Turn& operator=( Turn&& ) = default;
+
     char next() noexcept;
     char last() const noexcept;
 };

@@ -78,7 +78,9 @@ void Model::markCollisions() noexcept
 
 void Model::removeCollisions() noexcept
 {
-    carts_.erase( remove_if( carts_.begin(), carts_.end(), []( const Cart& c ){ return c.isCrashed(); }), carts_.end() );
+    carts_.erase(
+        remove_if( carts_.begin(), carts_.end(),
+            []( const Cart& c ){ return c.isCrashed(); }), carts_.end() );
 }
 
 
