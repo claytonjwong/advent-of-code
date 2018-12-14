@@ -27,7 +27,7 @@ public:
 
     const static char UP{ '^' }, RIGHT{ '>' }, DOWN{ 'v' }, LEFT{ '<' };
 
-    static Direction getNextDirection( const Direction& dir, char mapped ) noexcept;
+    static Direction getNextDirection( const Direction& dir, char turnKey ) noexcept;
 
     static char to_char( const Direction& dir ) noexcept;
 };

@@ -66,10 +66,10 @@ void Cart::updatePosition() noexcept
 
 void Cart::updateDirection( const Map& map ) noexcept
 {
-    char mapped = map.get( pos_ );
-    if( mapped == '+' )
-        mapped = turn_.next();
-    dir_ = Director::getNextDirection( dir_, mapped );
+    char turnKey = map.get( pos_ );
+    if( turnKey == '+' )
+        turnKey = turn_.next();
+    dir_ = Director::getNextDirection( dir_, turnKey );
 }
 
 

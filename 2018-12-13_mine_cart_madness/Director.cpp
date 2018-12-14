@@ -27,16 +27,17 @@ const vector< string > Director::stateMachine_ =
     //  "D.RLRDL", // down == 2
     //  ".LUDDLU"  // left == 3
 
-        "0.31301",
-        ".120012",
-        "2.13123",
-        ".302230"
+    //   |-\/LSR
+        "0.31301", // up == 0
+        ".120012", // right == 1
+        "2.13123", // down == 2
+        ".302230"  // left == 3
 };
 
 
-Director::Direction Director::getNextDirection( const Director::Direction& dir, char mapped ) noexcept
+Director::Direction Director::getNextDirection( const Director::Direction& dir, char turnKey ) noexcept
 {
-    size_t row = static_cast< int >( dir ), col{ mapping_.find( mapped ) };
+    size_t row = static_cast< int >( dir ), col{ mapping_.find( turnKey ) };
     char next{ stateMachine_[ row ][ col ] };
     return static_cast< Direction >( next - '0' );
 }

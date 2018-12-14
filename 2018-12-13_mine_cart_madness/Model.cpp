@@ -21,7 +21,7 @@ void Model::init() noexcept
 {
     //
     // gather carts from the map, and replace the character representing the cart
-    // with the proper piece of the map ( i.e. replace '<'/'>' with '-' and '^'/'V' with '|' )
+    // with the proper piece of the map ( i.e. replace '<'/'>' with '-' and '^'/'v' with '|' )
     //
     for( size_t y{ 0 }, x{ 0 }, id{ 0 }; y < map_.size(); ++y )
     {
