@@ -6,6 +6,7 @@
 
 
 #include <iostream>
+#include <numeric>
 
 
 struct Position
@@ -14,5 +15,15 @@ struct Position
 
     bool operator==( const Position& rhs ) const noexcept;
 };
+
+struct PositionHash
+{
+    std::size_t operator()(const Position& position ) const
+    {
+        return ( position.x * std::numeric_limits< short >::max() ) + position.y;
+    }
+};
+
+
 
 std::ostream& operator<<( std::ostream& stream, const Position& position ) noexcept;

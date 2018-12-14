@@ -3,6 +3,8 @@
 //
 
 #include "Model.hpp"
+#include <unordered_map>
+#include <algorithm>
 
 
 using namespace std;
@@ -44,18 +46,39 @@ void Model::init() noexcept
 
 bool Model::isCollision() const noexcept
 {
-    std::set<Cart> unique{ carts_.begin(), carts_.end() };
+    set< Cart > unique{ carts_.begin(), carts_.end() };
     return unique.size() != carts_.size();
 }
 
 
 Position Model::getCollisionPosition() const noexcept
 {
-    std::multiset<Cart> duplicate{ carts_.begin(), carts_.end() };
-    for( auto pre{ carts_.begin() }, cur{ next(pre) }; cur != carts_.end(); pre = cur++ )
+    multiset< Cart > duplicate{ carts_.begin(), carts_.end() };
+    for( auto pre{ duplicate.begin() }, cur{ next(pre) }; cur != duplicate.end(); pre = cur++ )
         if( pre->getPosition() == cur->getPosition() )
             return pre->getPosition();
     return {};
+}
+
+
+int Model::cartCount() const noexcept
+{
+    return carts_.size();
+}
+
+
+void Model::markCollisions() noexcept
+{
+    sort( carts_.begin(), carts_.end() );
+    for( auto pre{ carts_.begin() }, cur{ next(pre) }; cur != carts_.end(); pre = cur++ )
+        if( pre->getPosition() == cur->getPosition() )
+            pre->setCrashed(), cur->setCrashed();
+}
+
+
+void Model::removeCollisions() noexcept
+{
+    carts_.erase( remove_if( carts_.begin(), carts_.end(), []( const Cart& c ){ return c.isCrashed(); }), carts_.end() );
 }
 
 
@@ -64,8 +87,13 @@ void Model::tick() noexcept
     sort( carts_.begin(), carts_.end() );
     for( auto& cart: carts_ )
     {
-        cart.advance( map_ );
-        if( isCollision() )
-            break;
+        if( ! cart.isCrashed() )
+        {
+            cart.advance( map_ );
+            if( isCollision() )
+                markCollisions();
+        }
     }
+    if( isCollision() )
+        removeCollisions();
 }

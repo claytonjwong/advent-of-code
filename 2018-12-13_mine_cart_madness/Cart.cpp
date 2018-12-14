@@ -33,6 +33,18 @@ char Cart::getLastTurn() const noexcept
 }
 
 
+bool Cart::isCrashed() const noexcept
+{
+    return crashed_;
+}
+
+
+void Cart::setCrashed() noexcept
+{
+    crashed_ = true;
+}
+
+
 void Cart::advance( const Map& map ) noexcept
 {
     updatePosition();

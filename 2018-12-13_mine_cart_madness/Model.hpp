@@ -30,6 +30,10 @@ public:
 
     bool isCollision() const noexcept;
     Position getCollisionPosition() const noexcept;
+    int cartCount() const noexcept;
+
+    void markCollisions() noexcept;
+    void removeCollisions() noexcept;
 
     void tick() noexcept;
 };

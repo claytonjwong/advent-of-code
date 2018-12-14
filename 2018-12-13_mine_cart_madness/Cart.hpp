@@ -18,6 +18,7 @@ class Cart
     Position pos_{ 0, 0 };
     Director::Direction dir_{ 0 };
     Turn turn_;
+    bool crashed_{ false };
 
     void updatePosition() noexcept;
     void updateDirection( const Map& map ) noexcept;
@@ -40,8 +41,11 @@ public:
     Position getPosition() const noexcept;
     Director::Direction getDirection() const noexcept;
     char getLastTurn() const noexcept;
+    bool isCrashed() const noexcept;
 
+    void setCrashed() noexcept;
     void advance( const Map& map ) noexcept;
+
 };
 
 bool operator<( const Cart& lhs, const Cart& rhs );
