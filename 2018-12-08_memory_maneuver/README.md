@@ -51,3 +51,7 @@ Node A has three metadata entries: 1, 1, and 2. The 1 references node A's first 
 So, in this example, the value of the root node is 66.
 
 What is the value of the root node?
+
+Your puzzle answer was 37450.
+
+Both parts of this puzzle are complete! They provide two gold stars: **
