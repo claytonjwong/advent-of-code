@@ -12,10 +12,10 @@ struct Answer { int power{ 0 }, row{ 0 }, col{ 0 }, size{ 0 }; };
 
 
 const int N{ 301 }, SERIAL_NUMBER{ 8444 };
-class Solution
-{
-public:
 
+
+struct Solution
+{
     Answer getMaxPower( Answer ans={} ) const noexcept
     {
         VVI G( N, VI( N, 0 ) );
@@ -28,8 +28,8 @@ public:
                         power += G[ i ][ j ];
         return ans;
     }
-
 };
+
 
 int main()
 {
