@@ -7,7 +7,7 @@
 
 #include <string>
 
-/*
+
 const std::string INPUT =
 R"(position=< 21373,  53216> velocity=<-2, -5>
 position=<-10460, -31621> velocity=< 1,  3>
@@ -338,9 +338,9 @@ position=<-52902, -21015> velocity=< 5,  2>
 position=< 42536,  32004> velocity=<-4, -3>
 position=<-10442,  32007> velocity=< 1, -3>
 )";
-*/
 
 
+/*
 const std::string INPUT =
 R"(position=< 9,  1> velocity=< 0,  2>
 position=< 7,  0> velocity=<-1,  0>
@@ -374,7 +374,7 @@ position=< 5,  9> velocity=< 1, -2>
 position=<14,  7> velocity=<-2,  0>
 position=<-3,  6> velocity=< 2, -1>
 )";
-
+*/
 
 /*
 const std::string INPUT =

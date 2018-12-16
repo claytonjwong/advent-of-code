@@ -52,7 +52,7 @@ public:
             }
         }
 
-        for( auto tick{ 0 }; tick < 5; ++tick )
+        for( auto tick{ 0 }; tick < 20000; ++tick )
         {
             auto uniqueTotal{ 0 }; Unique uniqueRow, uniqueCol;
             for( const auto& light: lights )
@@ -90,6 +90,7 @@ int main()
     for( const auto& light: ans.lights )
         message.insert( light.pos );
 
+    cout << endl << endl << "Wait for " << ans.tick << " seconds:" << endl << endl;
     for( auto i{ ans.minRow }; i <= ans.maxRow; ++i, cout << endl )
         for( auto j{ ans.minCol }; j <= ans.maxCol; ++j )
                 cout << ( ( message.find( { i, j } ) == message.end() )? '.' : '#' );
@@ -108,6 +109,8 @@ int main()
 */
 
 /*
+
+Wait for 10605 seconds:
 
 #####...#....#.....###..#....#.....###....##....######..#....#
 #....#..#....#......#...#....#......#....#..#...#.......#....#
