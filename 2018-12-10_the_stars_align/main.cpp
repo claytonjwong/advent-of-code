@@ -84,26 +84,43 @@ bool operator==( const Position& lhs, const Position& rhs ){ return lhs.row == r
 struct Cmp{ size_t operator()( const Position& pos ) const { return pos.row * 10000 + pos.col; } };
 int main()
 {
-
     Solution s;
     auto ans{ s.getMaxAligned( INPUT ) };
     unordered_set< Position, Cmp > message;
     for( const auto& light: ans.lights )
         message.insert( light.pos );
 
-    for( auto i{ ans.minRow }; i <= ans.maxRow; ++i )
-    {
+    for( auto i{ ans.minRow }; i <= ans.maxRow; ++i, cout << endl )
         for( auto j{ ans.minCol }; j <= ans.maxCol; ++j )
-        {
-            if( message.find( { i, j } ) == message.end() )
-            {
-                cout << '.';
-            }
-            else
-                cout << "#";
-        }
-        cout << endl;
-    }
+                cout << ( ( message.find( { i, j } ) == message.end() )? '.' : '#' );
+
+/*
+
+#...#..###
+#...#...#.
+#...#...#.
+#####...#.
+#...#...#.
+#...#...#.
+#...#...#.
+#...#..###
+
+*/
+
+/*
+
+#####...#....#.....###..#....#.....###....##....######..#....#
+#....#..#....#......#...#....#......#....#..#...#.......#....#
+#....#...#..#.......#....#..#.......#...#....#..#........#..#.
+#....#...#..#.......#....#..#.......#...#....#..#........#..#.
+#####.....##........#.....##........#...#....#..#####.....##..
+#....#....##........#.....##........#...######..#.........##..
+#....#...#..#.......#....#..#.......#...#....#..#........#..#.
+#....#...#..#...#...#....#..#...#...#...#....#..#........#..#.
+#....#..#....#..#...#...#....#..#...#...#....#..#.......#....#
+#####...#....#...###....#....#...###....#....#..######..#....#
+
+*/
 
     return 0;
 }
