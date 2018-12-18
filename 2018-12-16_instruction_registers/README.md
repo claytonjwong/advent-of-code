@@ -22,6 +22,8 @@ Multiplication:
 
 mulr (multiply register) stores into register C the result of multiplying register A and register B.
 muli (multiply immediate) stores into register C the result of multiplying register A and value B.
+
+
 Bitwise AND:
 
 banr (bitwise AND register) stores into register C the result of the bitwise AND of register A and register B.
@@ -78,5 +80,13 @@ To begin, get your puzzle input.
 
 Answer: 
  
+Your puzzle answer was 618.
 
-You can also [Share] this puzzle.
+The first half of this puzzle is complete! It provides one gold star: *
+
+## Part Two
+Using the samples you collected, work out the number of each opcode and execute the test program (the second section of your puzzle input).
+
+What value is contained in register 0 after executing the test program?
+
+TODO: wrong answer
