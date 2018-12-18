@@ -105,7 +105,6 @@ bool isAdj( const VVC& G, const int row, const int col, const char target, const
 int main()
 {
     VVC cur, next( N, VC( N, '.' ) );
-
     istringstream stream{ input };
     for( string line; getline( stream, line ); )
     {
@@ -113,26 +112,16 @@ int main()
         for( const char c: line )
             cur.back().push_back( c );
     }
-    for( auto m{ 10 }; m--; cur.swap( next ) ) for( auto r{ 0 }; r < N; ++r ) for( auto c{ 0 }; c < N; ++c )
-    {
-        char X{ cur[ r ][ c ] };
 
-        if( X == '.' && isAdj( cur, r, c, '|', 3 ) )
+    for( auto m{ 10 }; m--; cur.swap( next ) ) for( auto r{ 0 }; r < N; ++r ) for( auto c{ 0 }; c < N; ++c )
+        if( cur[ r ][ c ] == '.' && isAdj( cur, r, c, '|', 3 ) )
             next[ r ][ c ] = '|';
-        else
-        if( X == '|' && isAdj( cur, r, c, '#', 3 ) )
+        else if( cur[ r ][ c ] == '|' && isAdj( cur, r, c, '#', 3 ) )
             next[ r ][ c ] = '#';
+        else if( cur[ r ][ c ] == '#' )
+            next[ r ][ c ] = ( isAdj( cur, r, c, '|', 1 ) && isAdj( cur, r, c, '#', 1 ) )? '#' : '.';
         else
-        if( X == '#' )
-        {
-            if ( isAdj( cur, r, c, '|', 1 ) && isAdj( cur, r, c, '#', 1 ) )
-                next[ r ][ c ] = '#';
-            else
-                next[ r ][ c ] = '.';
-        }
-        else
-            next[ r ][ c ] = X;
-    }
+            next[ r ][ c ] = cur[ r ][ c ];
 
     int T{ 0 }, L{ 0 }; // count of trees / lumberyards
     for( const auto row: cur )
