@@ -16,11 +16,12 @@ The quantity of metadata entries.
 Zero or more child nodes (as specified in the header).
 One or more metadata entries (as specified in the header).
 Each child node is itself a node that has its own header, child nodes, and metadata. For example:
-
+```
 2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2
 A----------------------------------
     B----------- C-----------
                      D-----
+```
 In this example, each node of the tree is also marked with an underline starting with a letter for easier identification. In it, there are four nodes:
 
 A, which has 2 child nodes (B, C) and 3 metadata entries (1, 1, 2).
