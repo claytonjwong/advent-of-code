@@ -123,7 +123,7 @@ int main()
         else
             next[ r ][ c ] = cur[ r ][ c ];
 
-    int T{ 0 }, L{ 0 }; // count of trees / lumberyards
+    int T{ 0 }, L{ 0 }; // count of (T)rees / (L)umberyards
     for( const auto row: cur )
         T += count_if( row.cbegin(), row.cend(), []( auto c ){ return c == '|'; }),
         L += count_if( row.cbegin(), row.cend(), []( auto c ){ return c == '#'; });
