@@ -38,7 +38,7 @@ public:
     {
         for( Recipe next;; next.clear(), i = (i+S[i]+1) % S.size(), j = (j+S[j]+1) % S.size() )
         {
-            for( auto score( S[ i ] + S[ j ] ); score > 0; score /= 10 ){ next.push_front( score % 10 ); }
+            for( auto score( S[i] + S[j] ); score > 0; score /= 10 ){ next.push_front( score % 10 ); }
             if( next.empty() ){ next.push_back( 0 ); } // 0 + 0 == 0
 
             for( const auto x: next ){ haystack.push_back( '0' + x ); }
