@@ -33,21 +33,20 @@ public:
             if( regex_match( line, group, pattern ) && group.size() == 3 )
             {
                 char parent{ 0 }, child{ 0 };
-                stringstream parser;
-                parser << group[ 1 ] << ' ' << group[ 2 ];
-                parser >> parent >> child;
+                stringstream parser; parser << group[ 1 ] << ' ' << group[ 2 ]; parser >> parent >> child;
                 if( G.find( child ) == G.end() ) G[ child ] = {};
                 if( G.find( parent ) == G.end() ) G[ parent ] = {};
                 G[ child ].insert( parent );
             }
         }
 
-        for( const auto& x: G ) if ( x.second.empty() && V.insert( x.first ).second)
-            q.push( x.first ); // only push children with no parents onto the queue for BFS
+        // only push children with no parents onto the queue for BFS
+        for( const auto& x: G ) if ( x.second.empty() && V.insert( x.first ).second )
+            q.push( x.first );
         while( ! q.empty() )
         {
             ans.push_back( q.top() ), q.pop();
-            for( auto& x: G )
+            for( const auto& x: G )
             {
                 G[ x.first ].erase( ans.back() );
                 if( G[ x.first ].empty() && V.insert( x.first ).second ) q.push( x.first );
