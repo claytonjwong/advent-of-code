@@ -49,13 +49,6 @@ int main()
                 units.push_back( G[ i ][ j ] );
     for( auto round{ 0 };; ++round )
     {
-        // print grid
-        cout << "before round: " << round << endl;
-        for( auto i{ 0 }; i < M; cout << endl, ++i )
-            for( auto j{ 0 }; j < N; ++j )
-                cout << G[ i ][ j ].type;
-        cout << endl;
-
         auto turns{ 0 }; auto islastDeathAfterLastTurn{ false };
         for( const auto& unit: units )
         {
@@ -78,9 +71,7 @@ int main()
             for( const auto& a: ADJ )
             {
                 row = source.row + a[ 0 ], col = source.col + a[ 1 ];
-                if( ! ( 0 <= row && row < M && 0 <= col && col < N ) ) // TODO: remove?  looks like units have a # surrounding the outter edge of the Grid
-                    continue;
-                auto& target = G[ row ][ col ]; // TODO: ensure G is updated, not just a copy of that cell!
+                auto& target = G[ row ][ col ];
                 if( ( source.type == 'E' && target.type == 'G' )  ||  ( source.type == 'G' && target.type == 'E' ) )
                 {
                     targets.push_back( target );
@@ -96,23 +87,13 @@ int main()
                         weakestTarget = it;
                 }
                 auto& target = G[ weakestTarget->row ][ weakestTarget->col ];
-                cout << "Before attack: " << endl;
-                cout << "Source: " << source.type << " @ [ " << source.row << " ][ " << source.col << " ]  HP = " << source.hitPoints << endl;
-                cout << "Target: " << target.type << " @ [ " << target.row << " ][ " << target.col << " ]  HP = " << target.hitPoints << endl;
-
                 target.hitPoints -= source.attackPower;
                 if( target.hitPoints <= 0 )
                 {
                     if( turns == units.size() )
                         islastDeathAfterLastTurn = true;
-                    cout << "Died: " << target.type << " @ [ " << target.row << " ][ " << target.col << " ]  HP = " << target.hitPoints << endl;
                     target.type = '.',  target.attackPower = 0, target.hitPoints = 0; // target died
                 }
-
-                cout << "After attack: " << endl;
-                cout << "Source: " << source.type << " @ [ " << source.row << " ][ " << source.col << " ]  HP = " << source.hitPoints << endl;
-                cout << "Target: " << target.type << " @ [ " << target.row << " ][ " << target.col << " ]  HP = " << target.hitPoints << endl;
-                cout << endl;
 
                 continue; // no movement performed if attack
             }
@@ -129,8 +110,6 @@ int main()
                     for( const auto& a: ADJ )
                     {
                         row = cur.row + a[ 0 ], col = cur.col + a[ 1 ];
-                        if( ! ( 0 <= row && row < M && 0 <= col && col < N ) ) // TODO: remove?  looks like units have a # surrounding the outter edge of the Grid
-                            continue;
                         const auto& candidate = G[ row ][ col ];
                         if( candidate.type == '.' && V.insert( candidate ).second )
                             q.push( candidate );
@@ -151,8 +130,6 @@ int main()
                 for( const auto& a: ADJ )
                 {
                     row = target.row + a[ 0 ], col = target.col + a[ 1 ];
-                    if( ! ( 0 <= row && row < M && 0 <= col && col < N ) ) // TODO: remove?  looks like units have a # surrounding the outter edge of the Grid
-                        continue;
                     const auto& candidate = G[ row ][ col ];
                     if( candidate.type == '.' )
                         adjTarget.insert( candidate );
@@ -168,8 +145,6 @@ int main()
             for( const auto a: ADJ )
             {
                 row = source.row + a[ 0 ], col = source.col + a[ 1 ];
-                if( ! ( 0 <= row && row < M && 0 <= col && col < N ) ) // TODO: remove?  looks like units have a # surrounding the outter edge of the Grid
-                    continue;
                 const auto& candidate = G[ row ][ col ];
                 if( candidate.type == '.' )
                     adjSource.insert( candidate );
@@ -188,8 +163,6 @@ int main()
                     for( const auto a: ADJ )
                     {
                         row = cur.row + a[ 0 ], col = cur.col + a[ 1 ];
-                        if( ! ( 0 <= row && row < M && 0 <= col && col < N ) ) // TODO: remove?  looks like units have a # surrounding the outter edge of the Grid
-                            continue;
                         const auto& candidate = G[ row ][ col ];
                         if( candidate.type == '.' && V.insert( candidate ).second )
                             q.push( candidate );
@@ -202,55 +175,31 @@ int main()
             //
             sort( moves.begin(), moves.end() ); // reading order, so choose the first sorted move
             auto& move = G[ moves[ 0 ].row ][ moves[ 0 ].col ];
-
-            cout << "Before move..." << endl;
-            cout << "Source: " << source.type << " @ [ " << source.row << " ][ " << source.col << " ]  HP = " << source.hitPoints << endl;
-            cout << "Move  : " << move.type << " @ [ " << move.row << " ][ " << move.col << " ]  HP = " << move.hitPoints << endl;
             swap( source.type, move.type );
             swap( source.attackPower, move.attackPower );
             swap( source.hitPoints, move.hitPoints );
-            cout << "After move..." << endl;
-            cout << "Source: " << source.type << " @ [ " << source.row << " ][ " << source.col << " ]  HP = " << source.hitPoints << endl;
-            cout << "Move  : " << move.type << " @ [ " << move.row << " ][ " << move.col << " ]  HP = " << move.hitPoints << endl;
 
             //
-            // attack from move ( if possible ) -- [ Note: source is a reference which still refers to the "old" source position ]
+            // attack from move ( if possible ) -- [ Note: source is a reference which still refers to the "old" source position
+            //                                             currently move is actually source, since they were swapped during the move ]
             //
             for( const auto a: ADJ )
             {
                 row = move.row + a[ 0 ], col = move.col + a[ 1 ];
-                if( ! ( 0 <= row && row < M && 0 <= col && col < N ) ) // TODO: remove?  looks like units have a # surrounding the outter edge of the Grid
-                    continue;
                 auto& target = G[ row ][ col ];
                 if( ( move.type == 'E' && target.type == 'G' )  ||  ( move.type == 'G' && target.type == 'E' ) )
                 {
-                    cout << "Before move-attack combo: " << endl;
-                    cout << "Move  : " << move.type << " @ [ " << move.row << " ][ " << move.col << " ]  HP = " << move.hitPoints << endl;
-                    cout << "Target: " << target.type << " @ [ " << target.row << " ][ " << target.col << " ]  HP = " << target.hitPoints << endl;
-
                     target.hitPoints -= move.attackPower;
                     if( target.hitPoints <= 0 )
                     {
+                        target.type = '.',  target.attackPower = 0, target.hitPoints = 0; // target died
                         if( turns == units.size() )
                             islastDeathAfterLastTurn = true;
-                        cout << "Died: " << target.type << " @ [ " << target.row << " ][ " << target.col << " ]  HP = " << target.hitPoints << endl;
-                        target.type = '.',  target.attackPower = 0, target.hitPoints = 0; // target died
                     }
-
-                    cout << "After move-attack combo: " << endl;
-                    cout << "Move  : " << move.type << " @ [ " << move.row << " ][ " << move.col << " ]  HP = " << move.hitPoints << endl;
-                    cout << "Target: " << target.type << " @ [ " << target.row << " ][ " << target.col << " ]  HP = " << target.hitPoints << endl;
-                    cout << endl;
 
                     break;
                 }
             }
-
-            for( auto i{ 0 }; i < M; cout << endl, ++i )
-                for( auto j{ 0 }; j < N; ++j )
-                    cout << G[ i ][ j ].type;
-            cout << endl;
-
         } // for each unit's turn this round
 
         auto lastUnitSize = units.size();
@@ -271,7 +220,6 @@ int main()
                     cout << G[ i ][ j ].type;
             cout << endl;
 
-
             int hitPointTotal{ 0 };
             for( const auto& unit: units )
             {
@@ -281,6 +229,7 @@ int main()
             cout << "hitPoint total: " << hitPointTotal << endl;
             cout << "rounds: " << round << endl;
             ans.first = hitPointTotal * round;
+
             break; // GAME OVER: no more (E)lfs or (G)oblins left, end battle without counting this round
         }
 
