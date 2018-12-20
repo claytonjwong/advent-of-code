@@ -32,11 +32,12 @@ class Solution
 {
 public:
 
-    PII getMaxArea( const string& input, int id=0, int row=0, int col=0, PII ans={},
+    PII getMaxArea( const string& input, string inputWithoutCommas={}, int id=0, int row=0, int col=0, PII ans={},
         VI rows={}, VI cols={}, VC coords={}, Counter counter={}, Border border={ 0 } ) const noexcept
     {
-        string in{ input }; for( char& c: in ) if( c == 44 ) c = 32; // transform commas to spaces
-        istringstream inputStream{ in };
+        transform( input.cbegin(), input.cend(), back_inserter( inputWithoutCommas ),  // transform commas to spaces
+            [&]( auto c ){ return( c == 44 )? 32 : c; } );
+        istringstream inputStream{ inputWithoutCommas };
         for( string line; getline( inputStream, line ); )
         {
             istringstream lineStream{ line }; lineStream >> col >> row;
@@ -74,7 +75,7 @@ public:
 
             if( G[ row ][ col ].sumDistance < 10000 ) ++ans.second;
         }
-        ans.first = max_element( counter.begin(), counter.end(),
+        ans.first = max_element( counter.cbegin(), counter.cend(),
             []( const PII& lhs, const PII& rhs ){ return lhs.second < rhs.second; })->second;
         return ans;
     }
