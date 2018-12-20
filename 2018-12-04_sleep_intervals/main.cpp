@@ -39,22 +39,19 @@ public:
             stringstream stream;
             if ( regex_match( timestamp, group, beginPattern ) && group.size() == 2 )
             {
-                stream << group[ 1 ];
-                stream >> id;
+                stream << group[ 1 ]; stream >> id;
                 if ( timeTables.find( id ) == timeTables.end() )
                     timeTables[ id ] = {};
             }
             else if ( regex_match( timestamp, group, sleepPattern ) && group.size() == 2 )
             {
-                stream << group[ 1 ];
-                stream >> minute;
+                stream << group[ 1 ]; stream >> minute;
                 timeTables[ id ].insert({ minute, 1 }); // +1 to track max overlap in next for-loop below
                 lastSleep = minute;
             }
             else if ( regex_match( timestamp, group, wakePattern ) && group.size() == 2 )
             {
-                stream << group[ 1 ];
-                stream >> minute;
+                stream << group[ 1 ]; stream >> minute;
                 timeTables[ id ].insert({ minute, -1 }); // -1 to track max overlap in next for-loop below
                 timeSums[ id ] += minute - lastSleep;
                 if ( maxMinute < timeSums[ id ] )
@@ -94,7 +91,7 @@ public:
                 }
             }
         }
-        ans.second = maxID * maxMinute; // wrong answer for second part
+        ans.second = maxID * maxMinute; // TODO: wrong answer for second part
 
         return ans;
     }

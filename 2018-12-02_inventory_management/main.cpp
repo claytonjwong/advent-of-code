@@ -35,7 +35,7 @@ public:
     string getOffByOne( const string& input, VS lines={}, string ans={} )
     {
         istringstream stream{ input };
-        for( string line; getline( stream, line ); lines.emplace_back( line ) );
+        for( string line; getline( stream, line ); lines.emplace_back( std::move(line) ) );
         sort( lines.begin(), lines.end() );
         for( auto pre{ lines.cbegin() }, cur{ next(pre) }; cur != lines.cend(); pre=cur, cur=next(pre) )
         {
