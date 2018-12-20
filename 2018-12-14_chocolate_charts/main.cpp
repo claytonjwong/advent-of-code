@@ -24,7 +24,7 @@ public:
     {
         for( Recipe next; S.size() < TOTAL; next.clear(), i = (i+S[i]+1) % S.size(), j = (j+S[j]+1) % S.size() )
         {
-            for( auto score( S[ i ] + S[ j ] ); score > 0; score /= 10 ){ next.push_front( score % 10 ); }
+            for( auto score( S[i] + S[j] ); score > 0; score /= 10 ){ next.push_front( score % 10 ); }
             if( next.empty() ){ next.push_back( 0 ); } // 0 + 0 == 0
             std::move( next.begin(), next.end(), back_inserter( S ) );
         }
@@ -36,7 +36,7 @@ public:
 
     size_t numRecipesBefore( const string& needle, string haystack="37", Score S={ 3,7 }, size_t i=0, size_t j=1 ) const noexcept
     {
-        for( Recipe next; true; next.clear(), i = (i+S[i]+1) % S.size(), j = (j+S[j]+1) % S.size() )
+        for( Recipe next;; next.clear(), i = (i+S[i]+1) % S.size(), j = (j+S[j]+1) % S.size() )
         {
             for( auto score( S[ i ] + S[ j ] ); score > 0; score /= 10 ){ next.push_front( score % 10 ); }
             if( next.empty() ){ next.push_back( 0 ); } // 0 + 0 == 0
@@ -47,7 +47,7 @@ public:
                 const auto pos{ haystack.find( needle, haystack.size() - needle.size() - 2 ) };
                 if( pos != string::npos ) return pos;
             }
-            std::move( next.begin(), next.end(), back_inserter( S ) );
+            std::move( next.cbegin(), next.cend(), back_inserter( S ) );
         }
     }
 };
