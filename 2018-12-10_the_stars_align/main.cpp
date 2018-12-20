@@ -19,6 +19,9 @@ using namespace std;
 using Lights = vector< Light >;
 using Aligned = vector< int >; // unique alignments of row/col per tick
 using Unique = unordered_set< int >;
+bool operator==( const Position& lhs, const Position& rhs ){ return lhs.row == rhs.row && lhs.col == rhs.col; }
+struct Cmp{ size_t operator()( const Position& pos ) const { return pos.row * 10000 + pos.col; } };
+using Message = unordered_set< Position, Cmp >;
 
 
 struct Answer
@@ -44,11 +47,10 @@ public:
         {
             if( regex_match( line, group, pattern ) && group.size() == 5 )
             {
-                stringstream parser;
-                parser << group[ 1 ] << ' ' << group[ 2 ] << ' ' << group[ 3 ] << ' ' << group[ 4 ];
+                stringstream parser; parser << group[ 1 ] << ' ' << group[ 2 ] << ' ' << group[ 3 ] << ' ' << group[ 4 ];
                 parser >> col >> row; Position pos{ row, col };
                 parser >> col >> row; Velocity speed{ row, col };
-                lights.emplace_back( Light{ std::move( pos ), std::move( speed ) } );
+                lights.emplace_back( Light{ std::move(pos), std::move(speed) } );
             }
         }
 
@@ -80,13 +82,12 @@ public:
     }
 };
 
-bool operator==( const Position& lhs, const Position& rhs ){ return lhs.row == rhs.row && lhs.col == rhs.col; }
-struct Cmp{ size_t operator()( const Position& pos ) const { return pos.row * 10000 + pos.col; } };
+
 int main()
 {
     Solution s;
     auto ans{ s.getMaxAligned( INPUT ) };
-    unordered_set< Position, Cmp > message;
+    Message message;
     for( const auto& light: ans.lights )
         message.insert( light.pos );
 
