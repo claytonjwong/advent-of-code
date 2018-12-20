@@ -26,7 +26,7 @@ public:
         {
             for( auto score( S[i] + S[j] ); score > 0; score /= 10 ){ next.push_front( score % 10 ); }
             if( next.empty() ){ next.push_back( 0 ); } // 0 + 0 == 0
-            std::move( next.begin(), next.end(), back_inserter( S ) );
+            std::move( next.cbegin(), next.cend(), back_inserter( S ) );
         }
 
         Score result{ S.cbegin() + PRE, S.cbegin() + TOTAL + 1 };
