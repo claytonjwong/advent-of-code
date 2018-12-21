@@ -2,6 +2,7 @@
 // Created by Clayton Wong on 2018-12-20.
 //
 
+#include "input.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
