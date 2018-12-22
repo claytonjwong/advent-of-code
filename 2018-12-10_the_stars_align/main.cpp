@@ -50,7 +50,7 @@ public:
                 stringstream parser; parser << group[ 1 ] << ' ' << group[ 2 ] << ' ' << group[ 3 ] << ' ' << group[ 4 ];
                 parser >> col >> row; Position pos{ row, col };
                 parser >> col >> row; Velocity speed{ row, col };
-                lights.emplace_back( Light{ std::move(pos), std::move(speed) } );
+                lights.emplace_back( std::move( Light{pos,speed} ) );
             }
         }
 
