@@ -28,7 +28,7 @@ int main()
             GI[ x ][ y ] = EL[ x-1 ][ y ] * EL[ x ][ y-1 ];
 
     L sum{ 0 };
-    for( auto el: EL )
+    for( auto& el: EL )
         transform( el.begin(), el.end(), el.begin(), []( auto& x ){ return x % 3; }),
         sum += accumulate( el.cbegin(), el.cend(), 0ULL );
     cout << "answer part 1: " << sum << endl;
