@@ -17,7 +17,7 @@ int main()
     long long depth{ 4002 }, M{ 5 }, N{ 746 }, MOD{ 20183 }; // input values
 
     VVL GI = VVL( M+1, VL( N+1, 0 ) ), EL{ GI }; // (G)eological (I)ndexes and (E)rosion (L)evels
-    for( int x{ 0 }; x <=M; ++x ) for( int y{ 0 }; y <= N; EL[ x ][ y ] = ( GI[ x ][ y ] + depth ) % MOD, ++y )
+    for( int x{ 0 }; x <= M; ++x ) for( int y{ 0 }; y <= N; EL[ x ][ y ] = ( GI[ x ][ y ] + depth ) % MOD, ++y )
         if( x == 0 && y == 0 )
             GI[ x ][ y ] = 0;
         else if( x == 0 )
