@@ -34,7 +34,7 @@ public:
             else
             {
                 for( auto moves{ 2 }; moves;  )
-                    ++it, it = ( --moves > 0 && it == circle.end() )? it = circle.begin() : it;
+                    ++it, it = ( --moves > 0 && it == circle.end() )? circle.begin() : it;
                 it = circle.insert( it, marble );
             }
         return *max_element( score.cbegin(), score.cend() );
@@ -44,7 +44,7 @@ public:
 int main()
 {
     Solution s;
-    cout << "first: " << s.getHighScore( M1 ) << " second: " << s.getHighScore( M2 ) << endl;
+    cout << "first: " << s.getHighScore( M1 ) << " second: " << s.getHighScore( M2 ) << endl; // first: 388131 second: 3239376988
 
     return 0;
 }
