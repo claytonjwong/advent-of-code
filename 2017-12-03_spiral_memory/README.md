@@ -150,7 +150,7 @@ Your puzzle input is still 289326.
         auto N{ 289326 };
         auto ans1 = solution.numSteps( N );
         cout << ans1 << endl;
-        auto ans2 = solution.stressTest( 289326 );
+        auto ans2 = solution.stressTest( N );
         cout << ans2 << endl;
         return 0;
     }

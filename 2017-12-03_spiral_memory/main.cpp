@@ -96,8 +96,8 @@ int main() {
     Solution< Type > solution;
     auto N{ 289326 };
     auto ans1 = solution.numSteps( N );
-    cout << ans1 << endl;
-    auto ans2 = solution.stressTest( 289326 );
-    cout << ans2 << endl;
+    auto ans2 = solution.stressTest( N );
+    cout << "Part 1: " << ans1 << endl;
+    cout << "Part 2: " << ans2 << endl;
     return 0;
 }
