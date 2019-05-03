@@ -26,6 +26,9 @@
 
 ## 2017
 ![](docs/2017.png)
+* [**Deay 17** - Spinlock](2017-12-17_spinlock)
+* [**Day 16** - Permutation Promenade](2017-12-16_permutation_promenade)
+* [**Day 15** - Dueling Generators](2017-12-15_dueling_generators)
 * [**Day 14** - Disk Defragmenter](2017-12-14_disk_defragmenter)
 * [**Day 13** - Packet Scanners](2017-12-13_packet_scanners)
 * [**Day 12** - Digital Plumber](2017-12-12_digital_plumber)
