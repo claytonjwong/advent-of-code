@@ -26,7 +26,10 @@
 
 ## 2017
 ![](docs/2017.png)
-* [**Deay 17** - Spinlock](2017-12-17_spinlock)
+* [**Day 20** - Partical Swarm](2017-12-20_partical_swarm)
+* [**Day 19** - A Series of Tubes](2017-12-19_series_of_tubes)
+* [**Day 18** - Duet](2017-12-18_duet)
+* [**Day 17** - Spinlock](2017-12-17_spinlock)
 * [**Day 16** - Permutation Promenade](2017-12-16_permutation_promenade)
 * [**Day 15** - Dueling Generators](2017-12-15_dueling_generators)
 * [**Day 14** - Disk Defragmenter](2017-12-14_disk_defragmenter)
