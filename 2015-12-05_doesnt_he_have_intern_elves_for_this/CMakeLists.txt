@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.14)
+project(2015_12_05_doesnt_he_have_intern_elves_for_this)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(2015_12_05_doesnt_he_have_intern_elves_for_this main.cpp)

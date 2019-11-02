@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.14)
+project(2015_12_02_i_was_told_there_would_be_no_math)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(2015_12_02_i_was_told_there_would_be_no_math main.cpp)
