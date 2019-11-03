@@ -20,20 +20,20 @@ int main() {
         parser >> x >> y;
         return {stoi(x), stoi(y)};
     };
+    VVI A(1000, VI(1000));
     auto mod_A = [](auto& cell, const auto& cmd, const auto& action) -> void {
         if (cmd == "turn")
             cell = action == "on" ? 1 : 0;
         if (cmd == "toggle")
             cell ^= 1;
     };
+    VVI B(1000, VI(1000));
     auto mod_B = [](auto& cell, const auto& cmd, const auto& action) -> void {
         if (cmd == "turn")
             cell += action == "on" ? 1 : cell > 0 ? -1 : 0; // increase/decrease total by 1 (minimum of zero)
         if (cmd == "toggle")
             cell += 2;
     };
-    VVI A(1000, VI(1000));
-    VVI B(1000, VI(1000));
     fstream fs{"./input.txt"};
     for (string line, cmd, action, beg, end, _; getline(fs, line); ) {
         istringstream parser{line};

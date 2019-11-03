@@ -1,10 +1,11 @@
+/*
+ * https://adventofcode.com/2015/day/5
+ */
+
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <unordered_set>
 #include <unordered_map>
-#include <vector>
-#include <queue>
 #include <numeric>
 
 using namespace std;
@@ -50,10 +51,8 @@ int main() {
     fstream fs{"./input.txt"};
     string s;
     while (fs >> s) {
-        if (isNice1(s))
-            ++cnt1;
-        if (isNice2(s))
-            ++cnt2;
+        if (isNice1(s)) ++cnt1;
+        if (isNice2(s)) ++cnt2;
     }
     cout << "Answer 1: " << cnt1 << endl
          << "Answer 2: " << cnt2 << endl;
