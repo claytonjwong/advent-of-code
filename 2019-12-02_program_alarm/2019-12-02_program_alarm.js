@@ -4,7 +4,6 @@
  * Q: https://adventofcode.com/2019/day/2
  * A: https://www.reddit.com/r/adventofcode/comments/e51rat/2019_day_2_javascript_solution/
  */
-
 let fs = require('fs');
 let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(x => parseInt(x));
 let gravityAssist = (noun, verb, ...A) => {
