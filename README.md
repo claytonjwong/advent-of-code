@@ -1,6 +1,10 @@
 # Advent of Code
 * [adventofcode.com](https://adventofcode.com)
 
+## 2019
+* [**Day 2** - Program Alert](2019-12-02_program_alarm)
+* [**Day 1** - The Tyranny of the Rocket Equation](2019-12-01_the_tyranny_of_the_rocket_equation)
+
 ## 2018
 ![](docs/2018.png)
 * [**Day 23** - Nanobots](2018-12-23_nanobots)
