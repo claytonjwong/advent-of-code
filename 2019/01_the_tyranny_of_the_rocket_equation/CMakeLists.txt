@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.14)
+project(2019_12_01_the_tyranny_of_the_rocket_equation)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(2019_12_01_the_tyranny_of_the_rocket_equation main.cpp)

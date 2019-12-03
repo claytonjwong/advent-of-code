@@ -21,7 +21,6 @@ console.log(`Part 1: ${gravityAssist(12, 2, ...input)}`);
 for (let i=0; i < 100; ++i)
     for (let j=0; j < 100; ++j)
         if (gravityAssist(i, j, ...input) == 19690720)
-            console.log(`Part 2: ${i}${j}`);            
-
+            console.log(`Part 2: ${i}${j}`);
 // Part 1: 5098658
 // Part 2: 5064
