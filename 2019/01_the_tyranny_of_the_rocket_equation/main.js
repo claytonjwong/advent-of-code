@@ -2,7 +2,7 @@
  * Day 1: The Tyranny of the Rocket Equation
  *
  * Q: https://adventofcode.com/2019/day/1
- * A: https://www.reddit.com/r/adventofcode/comments/e51aqm/2019_day_1_javascript_solution/
+ * A: https://claytonjwong.github.io/advent-of-code/2019/#day-1-the-tyranny-of-the-rocket-equation
  */ 
 
 let fs = require('fs');
