@@ -2,7 +2,7 @@
  * Day 3: Crossed Wires
  * 
  * Q: https://adventofcode.com/2019/day/3
- * A: 
+ * A: https://claytonjwong.github.io/advent-of-code/2019/#day-3-crossed-wires
  */
 let fs = require('fs');
 let input = fs.readFileSync('input.txt', 'utf-8');
@@ -30,12 +30,15 @@ class Wire {
       if (dir == 'L') --this.pos.col; if (dir == 'R') ++this.pos.col;
       let key = `${this.pos.row},${this.pos.col}`;
       this.seen.add(key);
-      if (!this.steps.get(key) || (this.steps.get(key) && this.steps.get(key) > this.total))
-        this.steps.set(key, this.total);
+      if (this.steps.get(key) && this.steps.get(key) <= this.total)
+        continue; // only add keys which don't exist; only update keys with larger total
+      this.steps.set(key, this.total);
     }
   }
 }
-let [A, B] = input.split("\n").map(list => list.split(",")).map(array => new Wire(array));
+let [A, B] = input.split("\n")
+  .map(list => list.split(","))
+  .map(array => new Wire(array));
 let intersect = [...A.seen].filter(x => B.seen.has(x));
 let closest = [...intersect]
   .map((key) => key.split(",").map(Number))
