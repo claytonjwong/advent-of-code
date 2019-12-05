@@ -64,12 +64,15 @@ class Wire {
       if (dir == 'L') --this.pos.col; if (dir == 'R') ++this.pos.col;
       let key = `${this.pos.row},${this.pos.col}`;
       this.seen.add(key);
-      if (!this.steps.get(key) || (this.steps.get(key) && this.steps.get(key) > this.total))
-        this.steps.set(key, this.total);
+      if (this.steps.get(key) && this.steps.get(key) <= this.total)
+        continue; // only add keys which don't exist; only update keys with larger total
+      this.steps.set(key, this.total);
     }
   }
 }
-let [A, B] = input.split("\n").map(list => list.split(",")).map(array => new Wire(array));
+let [A, B] = input.split("\n")
+  .map(list => list.split(","))
+  .map(array => new Wire(array));
 let intersect = [...A.seen].filter(x => B.seen.has(x));
 let closest = [...intersect]
   .map((key) => key.split(",").map(Number))
@@ -79,4 +82,36 @@ let minDelay = [...intersect]
   .map((key) => A.steps.get(key) + B.steps.get(key))
   .sort((a, b) => a - b);
 console.log(`Part 1: ${closest[0]}\nPart 2: ${minDelay[0]}`);
+```
+
+## [Day 4: Secure Container](https://adventofcode.com/2019/day/4)
+
+```javascript
+let ok1 = x => {
+    let A = x.toString().split('').map(Number);
+    return A.every((x, i) => i == 0 || A[i-1] <= x) &&
+           A.some((x, i) => i > 0 && A[i-1] == x);
+}
+let ok2 = x => {
+    let A = x.toString().split('').map(Number);
+    let cnt = new Map();
+    for (let val of A) {
+        if (cnt.has(val))
+            cnt.set(val, 1 + cnt.get(val));
+        else
+            cnt.set(val, 1);
+    }
+    for (let [key, val] of cnt)
+        if (val == 2)
+            return true;
+    return false;
+}
+let part1 = 0, part2 = 0;
+for (let x=197487; x < 673251; ++x) {
+    if (ok1(x))
+        ++part1;
+    if (ok1(x) && ok2(x))
+        ++part2;
+}
+console.log(`Part 1: ${part1}\nPart 2: ${part2}`);
 ```
