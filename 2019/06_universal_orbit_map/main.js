@@ -6,10 +6,10 @@
  */ 
 let fs = require('fs');
 let input = fs.readFileSync('input.txt', 'utf-8').split("\n").map(edge => edge.split(')'));
-let edges = new Map(); // [child, parent] (ie. parent -> child)
-for (let [u, v] of input) edges.set(v, u); // u is the parent of v (ie. u -> v)
-let go = (edges, child) => !edges.get(child) ? 0 : 1 + go(edges, edges.get(child)); // parent = edges.get(child)
-let total = [...edges.keys()].map(child => go(edges, child)).reduce((a, b) => a + b);
+let edges = new Map(); // lookup parent u by child v: [v, u] (ie. u -> v)
+for (let [u, v] of input) edges.set(v, u); // child v has parent u (ie. u -> v)
+let go = (edges, v) => !edges.get(v) ? 0 : 1 + go(edges, edges.get(v)); // parent u = edges.get(child v)
+let total = [...edges.keys()].map(v => go(edges, v)).reduce((a, b) => a + b);
 console.log(`Part 1: ${total}`);
 let [you, san] = [edges.get('YOU'), edges.get('SAN')];
 let path = { you: [], san: [] };
