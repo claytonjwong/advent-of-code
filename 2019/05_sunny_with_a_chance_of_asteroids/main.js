@@ -16,19 +16,16 @@ let run = (id, ...A) => {
         let cmd = pad(A[i]);
         let op = parseInt(cmd.substring(cmd.length - 2));
         let mode = { u: cmd[2], v: cmd[1], };
-        let param = {
-            u: (A, mode, x) => mode == '0' ? A[x] : x,
-            v: (A, mode, x) => mode == '0' ? A[x] : x,
-        };
+        let param = (A, mode, x) => mode == '0' ? A[x] : x;
         if (op == 99) {
             break;
         } else if (op == 1) {
             let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param.u(A, mode.u, u) + param.v(A, mode.v, v);
+            A[w] = param(A, mode.u, u) + param(A, mode.v, v);
             i += 4;
         } else if (op == 2) {
             let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param.u(A, mode.u, u) * param.v(A, mode.v, v);
+            A[w] = param(A, mode.u, u) * param(A, mode.v, v);
             i += 4;
         } else if (op == 3) {
             let v = id;
@@ -37,27 +34,27 @@ let run = (id, ...A) => {
             i += 2;
         } else if (op == 4) {
             let u = A[i+1];
-            ans = param.u(A, mode.u, u);
+            ans = param(A, mode.u, u);
             i += 2;
         } else if (op == 5) {
             let [u, v] = [A[i+1], A[i+2]];
-            if (param.u(A, mode.u, u) != 0)
-                i = param.v(A, mode.v, v);
+            if (param(A, mode.u, u) != 0)
+                i = param(A, mode.v, v);
             else
                 i += 3;
         } else if (op == 6) {
             let [u, v] = [A[i+1], A[i+2]];
-            if (param.u(A, mode.u, u) == 0)
-                i = param.v(A, mode.v, v);
+            if (param(A, mode.u, u) == 0)
+                i = param(A, mode.v, v);
             else
                 i += 3;
         } else if (op == 7) {
             let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param.u(A, mode.u, u) < param.v(A, mode.v, v);
+            A[w] = param(A, mode.u, u) < param(A, mode.v, v);
             i += 4;
         } else if (op == 8) {
             let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param.u(A, mode.u, u) == param.v(A, mode.v, v);
+            A[w] = param(A, mode.u, u) == param(A, mode.v, v);
             i += 4;
         }
     }
