@@ -24,13 +24,11 @@ let run = (id, ...A) => {
             break;
         } else if (op == 1) {
             let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param.u(A, mode.u, u)
-                 + param.v(A, mode.v, v);
+            A[w] = param.u(A, mode.u, u) + param.v(A, mode.v, v);
             i += 4;
         } else if (op == 2) {
             let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param.u(A, mode.u, u)
-                 * param.v(A, mode.v, v);
+            A[w] = param.u(A, mode.u, u) * param.v(A, mode.v, v);
             i += 4;
         } else if (op == 3) {
             let v = id;
