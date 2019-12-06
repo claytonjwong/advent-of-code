@@ -198,7 +198,7 @@ while (san) path.san.unshift(san), san = edges.get(san); // push san's parents t
 let ancestor = null; // traverse paths from root till divergence to find the first common ancestor
 for (let i=0;; ++i) {
     if (path.you[i] != path.san[i]) {
-        ancestor = path.you[i-1]; // same as path_san[i-1] (ie. you and san share this first common ancestor)
+        ancestor = path.you[i-1]; // same as path.san[i-1] (ie. you and san share this first common ancestor)
         break;
     }
 }
