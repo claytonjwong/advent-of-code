@@ -5,7 +5,7 @@
  * A: https://claytonjwong.github.io/advent-of-code/2019/#day-5-sunny-with-a-chance-of-asteroids
  */
 let fs = require('fs')
-let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(x => parseInt(x));
+let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
 let run = (id, ...A) => {
     let ans = 0;
     let pad = cmd => {

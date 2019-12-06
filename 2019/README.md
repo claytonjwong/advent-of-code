@@ -120,7 +120,7 @@ console.log(`Part 1: ${part1}\nPart 2: ${part2}`);
 
 ```javascript
 let fs = require('fs')
-let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(x => parseInt(x));
+let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
 let run = (id, ...A) => {
     let ans = 0;
     let pad = cmd => {
