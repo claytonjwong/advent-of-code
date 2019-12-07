@@ -16,14 +16,14 @@ let path = { you: [], san: [] };
 while (you) path.you.unshift(you), you = edges.get(you); // push you's parents to front of path you
 while (san) path.san.unshift(san), san = edges.get(san); // push san's parents to front of path san
 let ancestor = null; // traverse paths from root till divergence to find the first common ancestor
-for (let i=0;; ++i) {
-    if (path.you[i] != path.san[i]) {
-        ancestor = path.you[i-1]; // same as path.san[i-1] (ie. you and san share this first common ancestor)
-        break;
-    }
+for (let i = 0; ; ++i) {
+  if (path.you[i] != path.san[i]) {
+    ancestor = path.you[i - 1]; // same as path.san[i-1] (ie. you and san share this first common ancestor)
+    break;
+  }
 }
 let steps = { you: 0, san: 0 };
 [you, san] = [edges.get('YOU'), edges.get('SAN')];
-while (you != ancestor) ++steps.you, you = edges.get(you);
-while (san != ancestor) ++steps.san, san = edges.get(san);
+while (you != ancestor)++steps.you, you = edges.get(you);
+while (san != ancestor)++steps.san, san = edges.get(san);
 console.log(`Part 2: ${steps.you + steps.san}`);

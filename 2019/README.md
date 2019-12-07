@@ -18,21 +18,21 @@ console.log(`Part 1: ${run(f)}\nPart 2: ${run(go)}`);
 let fs = require('fs');
 let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(x => parseInt(x));
 let gravityAssist = (noun, verb, ...A) => {
-    A[1] = noun, A[2] = verb;
-    for (let i=0; i < A.length; i += 4) {
-        let [op, u, v, w] = [A[i], A[i+1], A[i+2], A[i+3]];
-        if (op == 99)
-            break;
-        if (op == 1) A[w] = A[u] + A[v];
-        if (op == 2) A[w] = A[u] * A[v];
-    }
-    return A[0];
+  A[1] = noun, A[2] = verb;
+  for (let i = 0; i < A.length; i += 4) {
+    let [op, u, v, w] = [A[i], A[i + 1], A[i + 2], A[i + 3]];
+    if (op == 99)
+      break;
+    if (op == 1) A[w] = A[u] + A[v];
+    if (op == 2) A[w] = A[u] * A[v];
+  }
+  return A[0];
 };
 console.log(`Part 1: ${gravityAssist(12, 2, ...input)}`);
-for (let i=0; i < 100; ++i)
-    for (let j=0; j < 100; ++j)
-        if (gravityAssist(i, j, ...input) == 19690720)
-            console.log(`Part 2: ${i}${j}`);
+for (let i = 0; i < 100; ++i)
+  for (let j = 0; j < 100; ++j)
+    if (gravityAssist(i, j, ...input) == 19690720)
+      console.log(`Part 2: ${i}${j}`);
 ```
 
 ## [Day 3: Crossed Wires](https://adventofcode.com/2019/day/3)
@@ -87,30 +87,30 @@ console.log(`Part 1: ${closest[0]}\nPart 2: ${minDelay[0]}`);
 
 ```javascript
 let ok1 = x => {
-    let A = x.toString().split('').map(Number);
-    return A.every((x, i) => i == 0 || A[i-1] <= x) &&
-           A.some((x, i) => i > 0 && A[i-1] == x);
+  let A = x.toString().split('').map(Number);
+  return A.every((x, i) => i == 0 || A[i - 1] <= x) &&
+    A.some((x, i) => i > 0 && A[i - 1] == x);
 }
 let ok2 = x => {
-    let A = x.toString().split('').map(Number);
-    let cnt = new Map();
-    for (let val of A) {
-        if (cnt.has(val))
-            cnt.set(val, 1 + cnt.get(val));
-        else
-            cnt.set(val, 1);
-    }
-    for (let [key, val] of cnt)
-        if (val == 2)
-            return true;
-    return false;
+  let A = x.toString().split('').map(Number);
+  let cnt = new Map();
+  for (let val of A) {
+    if (cnt.has(val))
+      cnt.set(val, 1 + cnt.get(val));
+    else
+      cnt.set(val, 1);
+  }
+  for (let [key, val] of cnt)
+    if (val == 2)
+      return true;
+  return false;
 }
 let part1 = 0, part2 = 0;
-for (let x=197487; x < 673251; ++x) {
-    if (ok1(x))
-        ++part1;
-    if (ok1(x) && ok2(x))
-        ++part2;
+for (let x = 197487; x < 673251; ++x) {
+  if (ok1(x))
+    ++part1;
+  if (ok1(x) && ok2(x))
+    ++part2;
 }
 console.log(`Part 1: ${part1}\nPart 2: ${part2}`);
 ```
@@ -121,58 +121,58 @@ console.log(`Part 1: ${part1}\nPart 2: ${part2}`);
 let fs = require('fs')
 let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
 let run = (id, ...A) => {
-    let ans = 0;
-    let pad = cmd => {
-        let padded = '00000' + cmd;
-        return padded.substring(padded.length - 5);
-    };
-    for (let i=0; i < A.length;) {
-        let cmd = pad(A[i]);
-        let op = parseInt(cmd.substring(cmd.length - 2));
-        let mode = { u: cmd[2], v: cmd[1], };
-        let param = (A, mode, x) => mode == '0' ? A[x] : x;
-        if (op == 99) {
-            break;
-        } else if (op == 1) {
-            let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param(A, mode.u, u) + param(A, mode.v, v);
-            i += 4;
-        } else if (op == 2) {
-            let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param(A, mode.u, u) * param(A, mode.v, v);
-            i += 4;
-        } else if (op == 3) {
-            let v = id;
-            let w = A[i+1];
-            A[w] = v;
-            i += 2;
-        } else if (op == 4) {
-            let u = A[i+1];
-            ans = param(A, mode.u, u);
-            i += 2;
-        } else if (op == 5) {
-            let [u, v] = [A[i+1], A[i+2]];
-            if (param(A, mode.u, u) != 0)
-                i = param(A, mode.v, v);
-            else
-                i += 3;
-        } else if (op == 6) {
-            let [u, v] = [A[i+1], A[i+2]];
-            if (param(A, mode.u, u) == 0)
-                i = param(A, mode.v, v);
-            else
-                i += 3;
-        } else if (op == 7) {
-            let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param(A, mode.u, u) < param(A, mode.v, v);
-            i += 4;
-        } else if (op == 8) {
-            let [u, v, w] = [A[i+1], A[i+2], A[i+3]];
-            A[w] = param(A, mode.u, u) == param(A, mode.v, v);
-            i += 4;
-        }
+  let ans = 0;
+  let pad = cmd => {
+    let padded = '00000' + cmd;
+    return padded.substring(padded.length - 5);
+  };
+  for (let i = 0; i < A.length;) {
+    let cmd = pad(A[i]);
+    let op = parseInt(cmd.substring(cmd.length - 2));
+    let mode = { u: cmd[2], v: cmd[1], };
+    let param = (A, mode, x) => mode == '0' ? A[x] : x;
+    if (op == 99) {
+      break;
+    } else if (op == 1) {
+      let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
+      A[w] = param(A, mode.u, u) + param(A, mode.v, v);
+      i += 4;
+    } else if (op == 2) {
+      let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
+      A[w] = param(A, mode.u, u) * param(A, mode.v, v);
+      i += 4;
+    } else if (op == 3) {
+      let v = id;
+      let w = A[i + 1];
+      A[w] = v;
+      i += 2;
+    } else if (op == 4) {
+      let u = A[i + 1];
+      ans = param(A, mode.u, u);
+      i += 2;
+    } else if (op == 5) {
+      let [u, v] = [A[i + 1], A[i + 2]];
+      if (param(A, mode.u, u) != 0)
+        i = param(A, mode.v, v);
+      else
+        i += 3;
+    } else if (op == 6) {
+      let [u, v] = [A[i + 1], A[i + 2]];
+      if (param(A, mode.u, u) == 0)
+        i = param(A, mode.v, v);
+      else
+        i += 3;
+    } else if (op == 7) {
+      let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
+      A[w] = param(A, mode.u, u) < param(A, mode.v, v);
+      i += 4;
+    } else if (op == 8) {
+      let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
+      A[w] = param(A, mode.u, u) == param(A, mode.v, v);
+      i += 4;
     }
-    return ans;
+  }
+  return ans;
 };
 console.log(`Part 1: ${run(1, ...input)}\nPart 2: ${run(5, ...input)}`);
 ```
@@ -192,16 +192,16 @@ let path = { you: [], san: [] };
 while (you) path.you.unshift(you), you = edges.get(you); // push you's parents to front of path you
 while (san) path.san.unshift(san), san = edges.get(san); // push san's parents to front of path san
 let ancestor = null; // traverse paths from root till divergence to find the first common ancestor
-for (let i=0;; ++i) {
-    if (path.you[i] != path.san[i]) {
-        ancestor = path.you[i-1]; // same as path.san[i-1] (ie. you and san share this first common ancestor)
-        break;
-    }
+for (let i = 0; ; ++i) {
+  if (path.you[i] != path.san[i]) {
+    ancestor = path.you[i - 1]; // same as path.san[i-1] (ie. you and san share this first common ancestor)
+    break;
+  }
 }
 let steps = { you: 0, san: 0 };
 [you, san] = [edges.get('YOU'), edges.get('SAN')];
-while (you != ancestor) ++steps.you, you = edges.get(you);
-while (san != ancestor) ++steps.san, san = edges.get(san);
+while (you != ancestor)++steps.you, you = edges.get(you);
+while (san != ancestor)++steps.san, san = edges.get(san);
 console.log(`Part 2: ${steps.you + steps.san}`);
 ```
 
@@ -215,33 +215,33 @@ let fs = require('fs');
 let A = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
 let run = require('../00_common/intcode_computer');
 let permutations = A => {
-    if (A.length == 1)
-        return A;
-    return A.reduce((res, x, i, A, B=[...A]) => {
-        B.splice(i, 1); // B is A without A[i] (ie. x)
-        return res.concat(permutations(B).map(a => [].concat(x, a))); // recursively insert x into all other positions
-    }, []);
+  if (A.length == 1)
+    return A;
+  return A.reduce((res, x, i, A, B = [...A]) => {
+    B.splice(i, 1); // B is A without A[i] (ie. x)
+    return res.concat(permutations(B).map(a => [].concat(x, a))); // recursively insert x into all other positions
+  }, []);
 }
-let maxThrust = (A, perms, loopback=false, max=-Infinity) => {
-    for (let perm of perms) {
-        let output = 0, pc = [];
-        let amp = [...Array(5)].map(row => [...A]);
-        perm.forEach((phase, i) => {
-            let j = 0;
-            [output, j] = run(amp[i], [phase, output]);
-            pc.push(j);
-            max = Math.max(max, output);
-        });
-        if (!loopback)
-            continue;
-        for (let i = 0; output > -Infinity; i = (i + 1) % 5) {
-            [output, pc[i]] = run(amp[i], [output], pc[i]);
-            max = Math.max(max, output);
-        }
+let maxThrust = (A, perms, loopback = false, max = -Infinity) => {
+  for (let perm of perms) {
+    let output = 0, pc = [];
+    let amp = [...Array(5)].map(row => [...A]);
+    perm.forEach((phase, i) => {
+      let j = 0;
+      [output, j] = run(amp[i], [phase, output]);
+      pc.push(j);
+      max = Math.max(max, output);
+    });
+    if (!loopback)
+      continue;
+    for (let i = 0; output > -Infinity; i = (i + 1) % 5) {
+      [output, pc[i]] = run(amp[i], [output], pc[i]);
+      max = Math.max(max, output);
     }
-    return max;
+  }
+  return max;
 };
-let perm1 = permutations([0,1,2,3,4]),
-    perm2 = permutations([5,6,7,8,9]);
+let perm1 = permutations([0, 1, 2, 3, 4]),
+    perm2 = permutations([5, 6, 7, 8, 9]);
 console.log(`Part 1: ${maxThrust(A, perm1)}\nPart 2: ${maxThrust(A, perm2, true)}`);
 ```
