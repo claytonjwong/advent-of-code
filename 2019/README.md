@@ -41,8 +41,7 @@ for (let i=0; i < 100; ++i)
 let fs = require('fs');
 let input = fs.readFileSync('input.txt', 'utf-8');
 class Wire {
-  constructor(input) {
-    this.input = input;
+  constructor(paths) {
     this.seen = new Set();
     this.total = 0;
     this.steps = new Map();
@@ -50,10 +49,10 @@ class Wire {
       row: 0,
       col: 0
     };
-    this.traverse();
+    this.traverse(paths);
   }
-  traverse() {
-    for (let path of this.input)
+  traverse(paths) {
+    for (let path of paths)
         this.walk(path);
   }
   walk(path) {
@@ -71,8 +70,8 @@ class Wire {
   }
 }
 let [A, B] = input.split("\n")
-  .map(list => list.split(","))
-  .map(array => new Wire(array));
+  .map(line => line.split(","))
+  .map(paths => new Wire(paths));
 let intersect = [...A.seen].filter(x => B.seen.has(x));
 let closest = [...intersect]
   .map((key) => key.split(",").map(Number))
