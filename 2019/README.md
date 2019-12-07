@@ -208,6 +208,9 @@ console.log(`Part 2: ${steps.you + steps.san}`);
 
 ## [Day 7: Amplification Circuit](https://adventofcode.com/2019/day/7)
 
+* Resources:
+    * [00_common/intcode_computer.js](00_common/intcode_computer.js) (slightly modified from [Day 5: Sunny with a Chance of Asteroids](#day-5-sunny-with-a-chance-of-asteroids))
+
 ```javascript
 let fs = require('fs');
 let A = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
