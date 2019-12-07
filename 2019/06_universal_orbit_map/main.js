@@ -24,6 +24,6 @@ for (let i = 0; ; ++i) {
 }
 let steps = { you: 0, san: 0 };
 [you, san] = [edges.get('YOU'), edges.get('SAN')];
-while (you != ancestor)++steps.you, you = edges.get(you);
-while (san != ancestor)++steps.san, san = edges.get(san);
+while (you != ancestor) ++steps.you, you = edges.get(you);
+while (san != ancestor) ++steps.san, san = edges.get(san);
 console.log(`Part 2: ${steps.you + steps.san}`);
