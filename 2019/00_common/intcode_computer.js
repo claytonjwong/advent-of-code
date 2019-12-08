@@ -10,51 +10,21 @@ let run = (A, input, pc = 0) => {
     let padded = '00000' + cmd;
     return padded.substring(padded.length - 5);
   };
-  for (let i = pc; i < A.length;) {
+  let op = 0, instructions = [0, 4, 4, 2, 2, 0, 0, 4, 4];
+  for (let i = pc; op != 99; i += instructions[op]) {
     let cmd = pad(A[i]);
-    let op = parseInt(cmd.substring(cmd.length - 2));
-    let mode = { u: cmd[2], v: cmd[1], };
-    let param = (A, mode, x) => mode == '0' ? A[x] : x;
-    if (op == 1) {
-      let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
-      A[w] = param(A, mode.u, u) + param(A, mode.v, v);
-      i += 4;
-    } else if (op == 2) {
-      let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
-      A[w] = param(A, mode.u, u) * param(A, mode.v, v);
-      i += 4;
-    } else if (op == 3) {
-      let v = iter.next().value;
-      let w = A[i + 1];
-      A[w] = v;
-      i += 2;
-    } else if (op == 4) {
-      let u = A[i + 1];
-      i += 2;
-      return [param(A, mode.u, u), i];
-    } else if (op == 5) {
-      let [u, v] = [A[i + 1], A[i + 2]];
-      if (param(A, mode.u, u) != 0)
-        i = param(A, mode.v, v);
-      else
-        i += 3;
-    } else if (op == 6) {
-      let [u, v] = [A[i + 1], A[i + 2]];
-      if (param(A, mode.u, u) == 0)
-        i = param(A, mode.v, v);
-      else
-        i += 3;
-    } else if (op == 7) {
-      let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
-      A[w] = param(A, mode.u, u) < param(A, mode.v, v);
-      i += 4;
-    } else if (op == 8) {
-      let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
-      A[w] = param(A, mode.u, u) == param(A, mode.v, v);
-      i += 4;
-    } else {
-      break;
-    }
+    let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
+    u = cmd[2] == 0 ? A[u] : u;
+    v = cmd[1] == 0 ? A[v] : v;
+    op = parseInt(cmd.substring(cmd.length - 2));
+    if (op == 1) A[w] = u + v;
+    if (op == 2) A[w] = u * v;
+    if (op == 3) w = A[i + 1], A[w] = iter.next().value;
+    if (op == 4) return [u, i + 2]; // i + 2 to move past op 4 instructions
+    if (op == 5) i = (u != 0) ? v : i + 3;
+    if (op == 6) i = (u == 0) ? v : i + 3;
+    if (op == 7) A[w] = u < v;
+    if (op == 8) A[w] = u == v;
   }
   return [-Infinity, -Infinity];
 };
