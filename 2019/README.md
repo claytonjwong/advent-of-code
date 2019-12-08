@@ -261,12 +261,9 @@ A.forEach((row, i) => {
   T[k][2] += row.filter(x => x == 2).length;
 });
 let cnt = T[0][0], min = 0;
-for (let i = 1; i < L; ++i) {
-  if (cnt > T[i][0]) {
-    cnt = T[i][0];
-    min = i;
-  }
-}
+for (let i = 1; i < L; ++i)
+  if (cnt > T[i][0])
+    cnt = T[i][0], min = i;
 console.log(`Part 1: ${T[min][1] * T[min][2]}`);
 for (let i = 0; i + M < M * L; ++i)
   for (let j = 0; j < N; ++j)
