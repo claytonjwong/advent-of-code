@@ -6,7 +6,7 @@
  */
 let fs = require('fs');
 let A = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
-let run = require('../00_common/intcode_computer');
+let run = require('../00_common/intcode_computer_day_07');
 let permutations = A => {
   if (A.length == 1)
     return A;
