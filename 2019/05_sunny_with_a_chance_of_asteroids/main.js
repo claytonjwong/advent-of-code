@@ -6,12 +6,8 @@
  */
 let fs = require('fs')
 let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
-let run = (id, ...A) => {
-  let ans = 0;
-  let pad = cmd => {
-    let padded = '00000' + cmd;
-    return padded.substring(padded.length - 5);
-  };
+let run = (id, A, ans = 0) => {
+  let pad = cmd => ('00000' + cmd).substring(('00000' + cmd).length - 5);
   let op = 0, instructions = [0, 4, 4, 2, 2, 0, 0, 4, 4];
   for (let i = 0; op != 99; i += instructions[op]) {
     let cmd = pad(A[i]);
@@ -30,6 +26,6 @@ let run = (id, ...A) => {
   }
   return ans;
 };
-console.log(`Part 1: ${run(1, ...input)}\nPart 2: ${run(5, ...input)}`);
+console.log(`Part 1: ${run(1, [...input])}\nPart 2: ${run(5, [...input])}`);
 // Part 1: 16574641
 // Part 2: 15163975
