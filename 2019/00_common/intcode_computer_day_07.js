@@ -6,10 +6,7 @@
  */
 let run = (A, input, pc = 0) => {
   let iter = input[Symbol.iterator]();
-  let pad = cmd => {
-    let padded = '00000' + cmd;
-    return padded.substring(padded.length - 5);
-  };
+  let pad = cmd => ('00000' + cmd).substring(('00000' + cmd).length - 5);
   let op = 0, instructions = [0, 4, 4, 2, 2, 0, 0, 4, 4];
   for (let i = pc; op != 99; i += instructions[op]) {
     let cmd = pad(A[i]);
