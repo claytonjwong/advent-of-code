@@ -10,6 +10,8 @@ let f = x => Math.floor(x / 3) - 2;
 let go = x => f(x) <= 0 ? 0 : f(x) + go(f(x));
 let run = func => input.split("\n").map(x => func(x)).reduce((a, b) => a + b);
 console.log(`Part 1: ${run(f)}\nPart 2: ${run(go)}`);
+// Part 1: 3376997
+// Part 2: 5062623
 ```
 
 ## [Day 2: 1202 Program Alarm](https://adventofcode.com/2019/day/2)
@@ -33,6 +35,8 @@ for (let i = 0; i < 100; ++i)
   for (let j = 0; j < 100; ++j)
     if (gravityAssist(i, j, ...input) == 19690720)
       console.log(`Part 2: ${i}${j}`);
+// Part 1: 5098658
+// Part 2: 5064
 ```
 
 ## [Day 3: Crossed Wires](https://adventofcode.com/2019/day/3)
@@ -81,6 +85,8 @@ let minDelay = [...intersect]
   .map((key) => A.steps.get(key) + B.steps.get(key))
   .sort((a, b) => a - b);
 console.log(`Part 1: ${closest[0]}\nPart 2: ${minDelay[0]}`);
+// Part 1: 731
+// Part 2: 5672
 ```
 
 ## [Day 4: Secure Container](https://adventofcode.com/2019/day/4)
@@ -113,6 +119,8 @@ for (let x = 197487; x < 673251; ++x) {
     ++part2;
 }
 console.log(`Part 1: ${part1}\nPart 2: ${part2}`);
+// Part 1: 1640
+// Part 2: 1126
 ```
 
 ## [Day 5: Sunny with a Chance of Asteroids](https://adventofcode.com/2019/day/5)
@@ -141,6 +149,8 @@ let run = (id, A, ans = 0) => {
   return ans;
 };
 console.log(`Part 1: ${run(1, [...input])}\nPart 2: ${run(5, [...input])}`);
+// Part 1: 16574641
+// Part 2: 15163975
 ```
 
 ## [Day 6: Universal Orbit Map](https://adventofcode.com/2019/day/6)
@@ -169,6 +179,8 @@ let steps = { you: 0, san: 0 };
 while (you != ancestor) ++steps.you, you = edges.get(you);
 while (san != ancestor) ++steps.san, san = edges.get(san);
 console.log(`Part 2: ${steps.you + steps.san}`);
+// Part 1: 453028
+// Part 2: 562
 ```
 
 ## [Day 7: Amplification Circuit](https://adventofcode.com/2019/day/7)
@@ -209,6 +221,8 @@ let maxThrust = (A, perms, loopback = false, max = -Infinity) => {
 let perm1 = permutations([0, 1, 2, 3, 4]),
     perm2 = permutations([5, 6, 7, 8, 9]);
 console.log(`Part 1: ${maxThrust(A, perm1)}\nPart 2: ${maxThrust(A, perm2, true)}`);
+// Part 1: 117312
+// Part 2: 1336480
 ```
 
 ## [Day 8: Space Image Format](https://adventofcode.com/2019/day/8)
@@ -239,6 +253,14 @@ for (let i = (M * L) - M; i < M * L; ++i) // last layer contains the dp algo res
   msg.push(A[i].join('').replace(/0/g, ' '));
 console.log('Part 2: ');
 msg.forEach(row => console.log(row));
+// Part 1: 1950
+// Part 2:
+// 1111 1  1  11  1  1 1    
+// 1    1 1  1  1 1  1 1    
+// 111  11   1  1 1111 1    
+// 1    1 1  1111 1  1 1    
+// 1    1 1  1  1 1  1 1    
+// 1    1  1 1  1 1  1 1111 
 ```
 
 ## [Day 9: Sensor Boost](https://adventofcode.com/2019/day/9)
@@ -287,6 +309,8 @@ let fs = require('fs');
 let A = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
 let run = require('../00_common/intcode_computer_day_09');
 console.log(`Part 1: ${run(A, [1])}\nPart 2: ${run(A, [2])}`);
+// Part 1: 3460311188
+// Part 2: 42202
 ```
 
 ## [Day 10: Monitoring Station](https://adventofcode.com/2019/day/10)
@@ -296,9 +320,14 @@ However, this is irrelevant since I'm consistent with this representation.
 
 ```javascript
 let fs = require('fs');
-let A = fs.readFileSync('input.txt', 'utf-8').split('\n').map(row => row.split(''));
+let input = fs.readFileSync('input.txt', 'utf-8').split('\n').map(row => row.split(''));
 let detect = A => {
   let gcd = (a, b) => b == 0 ? Math.abs(a) : gcd(b, a % b);
+  let delta = (a, b) => {
+    let diff = {}; [diff.x, diff.y] = [b.x - a.x, b.y - a.y];
+    let gdiv = gcd(diff.x, diff.y);
+    return { x: Math.floor(diff.x / gdiv), y: Math.floor(diff.y / gdiv) };
+  };
   let [M, N] = [A.length, A[0].length];
   let roids = []; for (let i = 0; i < M; ++i) for (let j = 0; j < N; ++j) if (A[i][j] == '#') roids.push([i, j]);
   let K = roids.length;
@@ -306,28 +335,143 @@ let detect = A => {
   let seen = new Set([...roids].map(roid => key(roid)));
   let all = [];
   for (let u = 0; u < K; ++u) {
-    let cnt = 0;
+    let a = {}; [a.x, a.y] = [...roids[u]];
+    let cand = { x: a.x, y: a.y, seen: new Set() }; // a candidate for best asteroid
     for (let v = 0; v < K; ++v) {
-      if (u == v)
-        continue; // do not compare asteroids to themselves
-      let A = {}; [A.x, A.y] = [...roids[u]];
-      let B = {}; [B.x, B.y] = [...roids[v]];
-      let diff = {}; [diff.x, diff.y] = [B.x - A.x, B.y - A.y];
-      let div = gcd(diff.x, diff.y);
-      let delta = {}; [delta.x, delta.y] = [Math.floor(diff.x / div), Math.floor(diff.y / div)];
-      let blocked = false;
-      let next = { x: A.x + delta.x, y: A.y + delta.y };
-      while (!(next.x == B.x && next.y == B.y)) {
-        if (seen.has(key([next.x, next.y])))
-          blocked = true;
-        next.x += delta.x, next.y +=delta.y
+      if (u == v) continue; // do not compare asteroids to themselves
+      let b = {}; [b.x, b.y] = [...roids[v]];
+      let d = delta(a, b); // take one step (d.x, d.y) at a time from (a -> b) to find (c)
+      let c = { x: a.x + d.x, y: a.y + d.y, isBlocking: false };
+      while (!(c.x == b.x && c.y == b.y)) {
+        if (seen.has(key([c.x, c.y])))
+          c.isBlocking = true;
+        c.x += d.x, c.y += d.y;
       }
-      if (!blocked)
-        ++cnt;
+      if (!c.isBlocking)
+        cand.seen.add([b.x, b.y]);
     }
-    all.push(cnt);
+    all.push(cand);
   }
-  return all.sort((a, b) => b - a)[0];
+  return all.sort((a, b) => b.seen.size - a.seen.size)[0];
 }
-console.log(`Part 1: ${detect(A)}`);
+let best = detect(input);
+console.log(`Part 1: ${best.seen.size}`);
+// Part 1: 247
+```
+
+## [Day 11: Space Police](https://adventofcode.com/2019/day/11)
+
+* [intcode_computer_day_11.js](00_common/intcode_computer_day_11.js)
+
+```javascript
+const Robot = require('../00_common/Robot');
+let run = (A, robot = new Robot(), pc = 0) => {
+  let pad = cmd => ('00000' + cmd).substring(('00000' + cmd).length - 5);
+  let param = (A, mode, x, rel, write = false) => {
+    if (write)
+      return mode == 0 ? x : x + rel;
+    if (mode == 0) return A[x];
+    if (mode == 1) return x;
+    if (mode == 2) return A[x + rel];
+  };
+  let op = 0, instructions = [0, 4, 4, 2, 2, 0, 0, 4, 4, 2];
+  let rel = 0; // relative base
+  let q = []; // command queue
+  for (let i = pc; op != 99; i += instructions[op]) {
+    let cmd = pad(A[i]);
+    op = Number(cmd.substring(cmd.length - 2));
+    let [u, v, w] = [A[i + 1], A[i + 2], A[i + 3]];
+    let mode = { u: Number(cmd[2]), v: Number(cmd[1]), w: Number(cmd[0]) };
+    u = param(A, mode.u, u, rel, op == 3);
+    v = param(A, mode.v, v, rel);
+    w = param(A, mode.w, w, rel, true);
+    if (op == 1) A[w] = u + v;
+    if (op == 2) A[w] = u * v;
+    if (op == 3) A[u] = robot.color();
+    if (op == 4) q.push(u);
+    if (op == 5) i = (u != 0) ? v : i + 3;
+    if (op == 6) i = (u == 0) ? v : i + 3;
+    if (op == 7) A[w] = u < v ? 1 : 0;
+    if (op == 8) A[w] = u == v ? 1 : 0;
+    if (op == 9) rel += u;
+    if (q.length == 2) { // process cmd q: [color, dir]
+        let [color, dir] = q;
+        robot.paint(color);
+        robot.turn(dir);
+        robot.step();
+        q.splice(0, q.length); // empty cmd q
+    }
+  }
+};
+module.exports = run;
+```
+
+* [main.js](11_space_police/main.js)
+
+```javascript
+const Robot = require('../00_common/Robot');
+let fs = require('fs');
+let A = fs.readFileSync('input.txt', 'utf-8').split(',').map(Number);
+let run = require('../00_common/intcode_computer_day_11');
+let r1 = new Robot();
+run(A, r1);
+console.log(`Part 1: ${r1.painted.size}`);
+let r2 = new Robot(1);
+run(A, r2);
+let [M, N] = [6, 43]; // I printed the min/max i,j to know these magic numbers
+let out = [...Array(M)].map(row => new Array(N).fill(' '));
+for (let key of r2.white) {
+  let [i, j] = key.split(',').map(Number);
+  out[i][j] = '#';
+}
+console.log('Part 2:');
+for (let i = 0; i < 6; ++i) {
+  let row = [];
+  for (let j = 0; j < 43; ++j)
+    row.push(out[i][j]);
+  console.log([...row].join(''));
+}
+// Part 1: 1967
+// Part 2:
+// ##  # ###  #  # ####  ##  #### ###  #  #   
+//  # #  #  # #  # #    #  #    # #  # # #    
+//  ##   ###  #  # ###  #      #  ###  ##     
+//  # #  #  # #  # #    # ##  #   #  # # #    
+//  # #  #  # #  # #    #  # #    #  # # #    
+//  #  # ###   ##  ####  ### #### ###  #  #     
+```
+
+## [Day 12: The N-Body Problem](https://adventofcode.com/2019/day/12)
+```javascript
+let fs = require('fs');
+let M = 4, N = 3; // 4 moons each with 3 positions (x, y, z)
+let P = fs.readFileSync('input.txt', 'utf-8').split('\n')
+  .map(line => line.substring(0, line.length - 1).substring(1))
+  .map(line => line.split(','))
+  .map(A => A.map(s => Number(s.trim().substring(2))));
+let V = [...Array(4)].map(row => new Array(3).fill(0));
+let gravity = (P, V) => {
+  for (let u = 0; u < M; ++u)
+    for (let v = 0; v < M; ++v)
+      for (let j = 0; u != v && j < N; ++j) {
+        if (P[u][j] < P[v][j]) ++V[u][j];
+        if (P[u][j] > P[v][j]) --V[u][j];
+      }
+}
+let velocity = (P, V) => {
+  for (let i = 0; i < M; ++i)
+    for (let j = 0; j < N; ++j)
+      P[i][j] += V[i][j];
+}
+let k = 1000; // k-steps
+while (k--)
+  gravity(P, V),
+  velocity(P, V);
+let sum = A => A.reduce((a, b) => Math.abs(a) + Math.abs(b));
+let energy = (P, V) => sum(P) * sum(V);
+let total = 0;
+for (let i = 0; i < M; ++i)
+  total += energy(P[i], V[i]);
+console.log(`Part 1: ${total}`);
+ // Part 1: 8742
 ```
