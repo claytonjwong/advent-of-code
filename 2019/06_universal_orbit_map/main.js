@@ -27,3 +27,5 @@ let steps = { you: 0, san: 0 };
 while (you != ancestor) ++steps.you, you = edges.get(you);
 while (san != ancestor) ++steps.san, san = edges.get(san);
 console.log(`Part 2: ${steps.you + steps.san}`);
+// Part 1: 453028
+// Part 2: 562
