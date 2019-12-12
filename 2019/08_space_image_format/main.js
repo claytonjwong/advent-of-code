@@ -30,7 +30,7 @@ for (let i = (M * L) - M; i < M * L; ++i) // last layer contains the dp algo res
 console.log('Part 2: ');
 msg.forEach(row => console.log(row));
 // Part 1: 1950
-// Part 2: FKAHL
+// Part 2:
 // 1111 1  1  11  1  1 1    
 // 1    1 1  1  1 1  1 1    
 // 111  11   1  1 1111 1    
