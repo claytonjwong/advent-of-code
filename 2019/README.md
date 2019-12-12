@@ -252,7 +252,7 @@ let msg = [];
 for (let i = (M * L) - M; i < M * L; ++i) // last layer contains the dp algo result (ie. all layers coalesced)
   msg.push(A[i].join('').replace(/0/g, ' '));
 console.log('Part 2: ');
-msg.forEach(row => console.log(row));
+msg.forEach(row => console.log(row.replace(/1/g, '#')));
 // Part 1: 1950
 // Part 2:
 // #### #  #  ##  #  # #    
