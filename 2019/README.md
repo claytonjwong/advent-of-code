@@ -361,6 +361,55 @@ console.log(`Part 1: ${best.seen.size}`);
 
 ## [Day 11: Space Police](https://adventofcode.com/2019/day/11)
 
+* [Robot.js](00_common/Robot.js)
+
+```javascript
+class Robot {
+  constructor(start = 0) {
+    this.m = new Map();
+    this.i = 0;
+    this.j = 0;
+    this.d = 0;
+    this.D = [0, 1, 2, 3]; // clockwise dirs 0 = up, 1 = right, 2 = down, 3 = left
+    this.L = [3, 0, 1, 2]; // left-turns (prev dir is index, next dir is value at that index)
+    this.R = [1, 2, 3, 0]; // right-turns (prev dir is index, next dir is value at that index)
+    this.painted = new Set();
+    this.white = new Set();
+    this.paint(start)
+  }
+  color() {
+    let [i, j] = [this.i, this.j];
+    if (!this.m.has(i))
+      this.m.set(i, new Map());
+    let row = this.m.get(i);
+    if (!row.has(j))
+      row.set(j, 0); // default value 0 for non-existent entries
+    return row.get(j);
+  }
+  paint(v) {
+    let [i, j] = [this.i, this.j];
+    if (!this.m.has(i))
+      this.m.set(i, new Map());
+    let row = this.m.get(i);
+    row.set(j, v);
+    let key = `${i},${j}`;
+    this.painted.add(key);
+    if (this.color() == 1)
+      this.white.add(key);
+  }
+  step() {
+    let d = this.d;
+    if (d == 0) --this.i; if (d == 2) ++this.i;
+    if (d == 3) --this.j; if (d == 1) ++this.j;
+  }
+  turn(dir) {
+    if (dir == 0) this.d = this.L[this.d];
+    if (dir == 1) this.d = this.R[this.d];
+  }
+}
+module.exports = Robot;
+```
+
 * [intcode_computer_day_11.js](00_common/intcode_computer_day_11.js)
 
 ```javascript
@@ -413,18 +462,15 @@ const Robot = require('../00_common/Robot');
 let fs = require('fs');
 let A = fs.readFileSync('input.txt', 'utf-8').split(',').map(Number);
 let run = require('../00_common/intcode_computer_day_11');
-let r1 = new Robot();
-run(A, r1);
-console.log(`Part 1: ${r1.painted.size}`);
-let r2 = new Robot(1);
-run(A, r2);
+let [r1, r2] = [new Robot(), new Robot(1)];
+run(A, r1), run(A, r2);
 let [M, N] = [6, 43]; // I printed the min/max i,j to know these magic numbers
 let out = [...Array(M)].map(row => new Array(N).fill(' '));
 for (let key of r2.white) {
   let [i, j] = key.split(',').map(Number);
   out[i][j] = '#';
 }
-console.log('Part 2:');
+console.log(`Part 1: ${r1.painted.size}\nPart 2:`);
 for (let i = 0; i < 6; ++i) {
   let row = [];
   for (let j = 0; j < 43; ++j)
