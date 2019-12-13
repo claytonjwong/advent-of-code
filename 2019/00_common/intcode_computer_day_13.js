@@ -35,10 +35,10 @@ let run = (A, robot = new Robot(), pc = 0) => {
     if (op == 8) A[w] = u == v ? 1 : 0;
     if (op == 9) rel += u;
     if (q.length == 3) { // process cmd q
-        let [col, row, tile] = q;
-        robot.goto(row, col);
-        robot.paint(tile);
-        q.splice(0, q.length); // empty cmd q
+      let [col, row, tile] = q;
+      robot.goto(row, col);
+      robot.paint(tile);
+      q.splice(0, q.length); // empty cmd q
     }
   }
 };
