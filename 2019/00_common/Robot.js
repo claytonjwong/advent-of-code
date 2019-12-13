@@ -9,7 +9,8 @@ class Robot {
     this.R = [1, 2, 3, 0]; // right-turns (prev dir is index, next dir is value at that index)
     this.painted = new Set();
     this.white = new Set();
-    this.paint(start)
+    this.blocks = new Set();
+    this.paint(start);
   }
   color() {
     let [i, j] = [this.i, this.j];
@@ -28,8 +29,11 @@ class Robot {
     row.set(j, v);
     let key = `${i},${j}`;
     this.painted.add(key);
-    if (this.color() == 1)
-      this.white.add(key);
+    if (this.color() == 1) this.white.add(key);
+    if (this.color() == 2) this.blocks.add(key); else this.blocks.delete(key);
+  }
+  goto(i, j) {
+    this.i = i, this.j = j;
   }
   step() {
     let d = this.d;
