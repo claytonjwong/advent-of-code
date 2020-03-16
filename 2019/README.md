@@ -100,12 +100,8 @@ let ok1 = x => {
 let ok2 = x => {
   let A = x.toString().split('').map(Number);
   let cnt = new Map();
-  for (let val of A) {
-    if (cnt.has(val))
-      cnt.set(val, 1 + cnt.get(val));
-    else
-      cnt.set(val, 1);
-  }
+  for (let val of A)
+      cnt.set(val, 1 + (cnt.get(val) || 0));
   for (let [key, val] of cnt)
     if (val == 2)
       return true;
