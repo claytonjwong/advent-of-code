@@ -5,7 +5,7 @@
  * A: https://claytonjwong.github.io/advent-of-code/2019/#day-2-1202-program-alarm
  */
 let fs = require('fs');
-let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(x => parseInt(x));
+let input = fs.readFileSync('input.txt', 'utf-8').split(',').map(x => parseInt(x));
 let gravityAssist = (noun, verb, ...A) => {
   A[1] = noun, A[2] = verb;
   for (let i = 0; i < A.length; i += 4) {

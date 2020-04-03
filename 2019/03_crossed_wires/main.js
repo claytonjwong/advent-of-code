@@ -35,12 +35,12 @@ class Wire {
     }
   }
 }
-let [A, B] = input.split("\n")
-  .map(line => line.split(","))
+let [A, B] = input.split('\n')
+  .map(line => line.split(','))
   .map(paths => new Wire(paths));
 let intersect = [...A.seen].filter(x => B.seen.has(x));
 let closest = [...intersect]
-  .map((key) => key.split(",").map(Number))
+  .map((key) => key.split(',').map(Number))
   .map(([i, j]) => Math.abs(i) + Math.abs(j))
   .sort((a, b) => a - b);
 let minDelay = [...intersect]

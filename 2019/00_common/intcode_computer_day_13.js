@@ -1,7 +1,7 @@
 /*
  * Intcode Computer
  *
- * Implementation from "Day 5: Sunny with a Chance of Asteroids"
+ * Implementation from 'Day 5: Sunny with a Chance of Asteroids'
  * this common functionality is used by other AoC Days
  */
 const Robot = require('../00_common/Robot');

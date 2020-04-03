@@ -5,7 +5,7 @@
  * A: https://claytonjwong.github.io/advent-of-code/2019/#day-6-universal-orbit-map
  */ 
 let fs = require('fs');
-let input = fs.readFileSync('input.txt', 'utf-8').split("\n").map(edge => edge.split(')'));
+let input = fs.readFileSync('input.txt', 'utf-8').split('\n').map(edge => edge.split(')'));
 let edges = new Map(); // lookup parent u by child v: [v, u] (ie. u -> v)
 for (let [u, v] of input) edges.set(v, u); // child v has parent u (ie. u -> v)
 let go = (edges, v) => !edges.get(v) ? 0 : 1 + go(edges, edges.get(v)); // parent u = edges.get(child v)

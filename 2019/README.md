@@ -8,7 +8,7 @@ let fs = require('fs');
 let input = fs.readFileSync('input.txt', 'utf8');
 let f = x => Math.floor(x / 3) - 2;
 let go = x => f(x) <= 0 ? 0 : f(x) + go(f(x));
-let run = func => input.split("\n").map(x => func(x)).reduce((a, b) => a + b);
+let run = func => input.split('\n').map(x => func(x)).reduce((a, b) => a + b);
 console.log(`Part 1: ${run(f)}\nPart 2: ${run(go)}`);
 // Part 1: 3376997
 // Part 2: 5062623
@@ -18,7 +18,7 @@ console.log(`Part 1: ${run(f)}\nPart 2: ${run(go)}`);
 
 ```javascript
 let fs = require('fs');
-let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(x => parseInt(x));
+let input = fs.readFileSync('input.txt', 'utf-8').split(',').map(x => parseInt(x));
 let gravityAssist = (noun, verb, ...A) => {
   A[1] = noun, A[2] = verb;
   for (let i = 0; i < A.length; i += 4) {
@@ -73,12 +73,12 @@ class Wire {
     }
   }
 }
-let [A, B] = input.split("\n")
-  .map(line => line.split(","))
+let [A, B] = input.split('\n')
+  .map(line => line.split(','))
   .map(paths => new Wire(paths));
 let intersect = [...A.seen].filter(x => B.seen.has(x));
 let closest = [...intersect]
-  .map((key) => key.split(",").map(Number))
+  .map((key) => key.split(',').map(Number))
   .map(([i, j]) => Math.abs(i) + Math.abs(j))
   .sort((a, b) => a - b);
 let minDelay = [...intersect]
@@ -123,7 +123,7 @@ console.log(`Part 1: ${part1}\nPart 2: ${part2}`);
 
 ```javascript
 let fs = require('fs')
-let input = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
+let input = fs.readFileSync('input.txt', 'utf-8').split(',').map(Number);
 let run = (id, A, ans = 0) => {
   let pad = cmd => ('00000' + cmd).substring(('00000' + cmd).length - 5);
   let op = 0, instructions = [0, 4, 4, 2, 2, 0, 0, 4, 4];
@@ -153,7 +153,7 @@ console.log(`Part 1: ${run(1, [...input])}\nPart 2: ${run(5, [...input])}`);
 
 ```javascript
 let fs = require('fs');
-let input = fs.readFileSync('input.txt', 'utf-8').split("\n").map(edge => edge.split(')'));
+let input = fs.readFileSync('input.txt', 'utf-8').split('\n').map(edge => edge.split(')'));
 let edges = new Map(); // lookup parent u by child v: [v, u] (ie. u -> v)
 for (let [u, v] of input) edges.set(v, u); // child v has parent u (ie. u -> v)
 let go = (edges, v) => !edges.get(v) ? 0 : 1 + go(edges, edges.get(v)); // parent u = edges.get(child v)
@@ -185,7 +185,7 @@ console.log(`Part 2: ${steps.you + steps.san}`);
 
 ```javascript
 let fs = require('fs');
-let A = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
+let A = fs.readFileSync('input.txt', 'utf-8').split(',').map(Number);
 let run = require('../00_common/intcode_computer');
 let permutations = A => {
   if (A.length == 1)
@@ -302,7 +302,7 @@ module.exports = run;
 
 ```javascript
 let fs = require('fs');
-let A = fs.readFileSync('input.txt', 'utf-8').split(",").map(Number);
+let A = fs.readFileSync('input.txt', 'utf-8').split(',').map(Number);
 let run = require('../00_common/intcode_computer_day_09');
 console.log(`Part 1: ${run(A, [1])}\nPart 2: ${run(A, [2])}`);
 // Part 1: 3460311188
