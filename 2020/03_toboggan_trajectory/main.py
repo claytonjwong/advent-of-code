@@ -4,20 +4,15 @@ with open('./input.txt') as input:
 M = len(A)
 N = len(A[0])
 
-# print(A)
-
 def traverse(down = 1, right = 3):
     cnt = 0
     i = 0
     j = 0
-    def step(i, j):
-        for _ in range(right):
-            j = j + 1 if j < N - 1 else 0
-        return i + down, j
     while i < M:
         if A[i][j] == '#':
             cnt += 1
-        i, j = step(i, j)
+        i += down
+        j += right; j %= N
     return cnt
 
 print(f'Part 1: {traverse()}')
