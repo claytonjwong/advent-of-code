@@ -26,15 +26,15 @@ lose = {
     'B': 'X',
     'C': 'Y',
 }
-win = {
-    'A': 'Y',
-    'B': 'Z',
-    'C': 'X',
-}
 tie = {
     'A': 'X',
     'B': 'Y',
     'C': 'Z',
+}
+win = {
+    'A': 'Y',
+    'B': 'Z',
+    'C': 'X',
 }
 t1, t2 = 0, 0
 with open('input.txt') as input:
