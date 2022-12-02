@@ -1,26 +1,7 @@
-# AoC 2022
-* [adventofcode.com/2022](https://adventofcode.com/2022)
+#
+# https://adventofcode.com/2022/day/2
+#
 
-## [Day 1: Calorie Counting](https://adventofcode.com/2022/day/1)
-```python
-A = []
-with open('input.txt') as input:
-    t = 0
-    for line in input:
-        line = line.strip()
-        if len(line):
-            t += int(line)
-        else:
-            A.append(t); t = 0
-A.sort()
-print(f'part 1: {A[-1]}')
-print(f'part 2: {sum(A[-3:])}')
-# part 1: 69883
-# part 2: 207576
-```
-
-## [Day 2: Rock Paper Scissors](https://adventofcode.com/2022/day/2)
-```python
 cost = {
     'X': 1, 'lose': 0,
     'Y': 2, 'tie': 3,
@@ -68,4 +49,3 @@ print(f'part 1: {t1}')
 print(f'part 2: {t2}')
 # part 1: 12855
 # part 2: 13726
-```
