@@ -72,10 +72,6 @@ print(f'part 2: {t2}')
 
 ## [Day 3: Rucksack Reorganization](https://adventofcode.com/2022/day/3)
 ```python
-#
-# https://adventofcode.com/2022/day/3
-#
-
 lower = lambda c: ord(c) - ord('a')
 upper = lambda c: ord(c) - ord('A') + 26
 cost = lambda c: 1 + (lower(c) if c.islower() else upper(c))
