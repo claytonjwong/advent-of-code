@@ -91,7 +91,6 @@ with open('input.txt') as input:
             a, b, c = A; A = []
             same = a & b & c
             t2 += sum(cost(c) for c in same)
-
 print(f'part 1: {t1}')
 print(f'part 2: {t2}')
 # part 1: 7674
