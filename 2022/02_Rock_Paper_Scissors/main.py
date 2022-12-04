@@ -36,6 +36,7 @@ win = {
     'B': 'Z',
     'C': 'X',
 }
+
 t1, t2 = 0, 0
 with open('input.txt') as input:
     for line in input:
