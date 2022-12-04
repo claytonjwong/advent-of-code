@@ -1,6 +1,7 @@
 # Advent of Code
 * [adventofcode.com](https://adventofcode.com)
 
+## [2022](2022)
 ## [2020](2020)
 ## [2019](2019)
 ## [2018](2018)
