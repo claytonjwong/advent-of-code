@@ -86,7 +86,7 @@ with open('input.txt') as input:
         b = set(list(line[n // 2:]))
         same = a & b
         t1 += sum(cost(c) for c in same)
-        A.append(set(c for c in list(line)))
+        A.append(a | b)
         if not (len(A) % 3):
             a, b, c = A; A = []
             same = a & b & c
