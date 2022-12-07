@@ -172,7 +172,7 @@ print(f'part 2: {part2}')
 # part 2: 2789
 ```
 
-[Day 7: No Space Left On Device](https://adventofcode.com/2022/day/7)
+## [Day 7: No Space Left On Device](https://adventofcode.com/2022/day/7)
 ```python3
 from bisect import bisect_left
 
