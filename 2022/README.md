@@ -1,6 +1,7 @@
 # AoC 2022
 * [adventofcode.com/2022](https://adventofcode.com/2022)
 
+---
 ## [Day 1: Calorie Counting](https://adventofcode.com/2022/day/1)
 ```python
 A = []
@@ -19,6 +20,7 @@ print(f'part 2: {sum(A[-3:])}')
 # part 2: 207576
 ```
 
+---
 ## [Day 2: Rock Paper Scissors](https://adventofcode.com/2022/day/2)
 ```python
 cost = {
@@ -71,6 +73,7 @@ print(f'part 2: {t2}')
 # part 2: 13726
 ```
 
+---
 ## [Day 3: Rucksack Reorganization](https://adventofcode.com/2022/day/3)
 ```python
 lower = lambda c: ord(c) - ord('a')
@@ -98,6 +101,7 @@ print(f'part 2: {t2}')
 # part 2: 2805
 ```
 
+---
 ## [Day 4: Camp Cleanup](https://adventofcode.com/2022/day/4)
 ```python
 t1, t2 = 0, 0
@@ -115,6 +119,7 @@ print(f'part 2: {t2}')
 # part 2: 779
 ```
 
+---
 ## [Day 5: Supply Stacks](https://adventofcode.com/2022/day/5)
 ```python
 from collections import deque
@@ -148,6 +153,7 @@ print(f'part 2: {move(False)}')
 # part 2: VRQWPDSGP
 ```
 
+---
 ## [Day 6: Tuning Trouble](https://adventofcode.com/2022/day/6)
 ```python
 from collections import deque
@@ -172,6 +178,7 @@ print(f'part 2: {part2}')
 # part 2: 2789
 ```
 
+---
 ## [Day 7: No Space Left On Device](https://adventofcode.com/2022/day/7)
 ```python
 from bisect import bisect_left
@@ -225,6 +232,7 @@ print(f'part 2: {acc.part2}')
 # part 2: 5469168
 ```
 
+---
 ## [Day 8: Treetop Tree House](https://adventofcode.com/2022/day/8)
 ```python
 A = []
@@ -285,6 +293,7 @@ print(f'part 2: {best}')
 # part 2: 201684
 ```
 
+---
 ## [Day 9: Rope Bridge](https://adventofcode.com/2022/day/9)
 ```python
 def run(T):
@@ -320,6 +329,7 @@ print(f'part 2: {run(10)}')
 # part 2: 2367
 ```
 
+---
 ## [Day 10: Cathode-Ray Tube](https://adventofcode.com/2022/day/10)
 ```python
 from collections import defaultdict
@@ -358,6 +368,7 @@ print(f'part 2:\n{newline.join("".join(row) for row in msg)}')
 #.....###.#..#.#.....###.####..##...###.
 ```
 
+---
 ## [Day 11: Monkey in the Middle](https://adventofcode.com/2022/day/11)
 ```python
 from collections import deque
