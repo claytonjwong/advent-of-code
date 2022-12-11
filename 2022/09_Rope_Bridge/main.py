@@ -18,16 +18,16 @@ def run(T):
     return len(seen)
 
 def slide(A, di, dj):
-        i, j = A[0]; A[0] = [i + di, j + dj]
-        for k in range(1, len(A)):
-            i, j = A[k - 1]
-            u, v = A[k]
-            du = i - u
-            dv = j - v
-            if abs(du) == 2 or abs(dv) == 2:
-                du = 1 if du == 2 else -1 if du == -2 else du
-                dv = 1 if dv == 2 else -1 if dv == -2 else dv
-                A[k] = [u + du, v + dv]
+    i, j = A[0]; A[0] = [i + di, j + dj]
+    for k in range(1, len(A)):
+        i, j = A[k - 1]
+        u, v = A[k]
+        du = i - u
+        dv = j - v
+        if abs(du) == 2 or abs(dv) == 2:
+            du = 1 if du == 2 else -1 if du == -2 else du
+            dv = 1 if dv == 2 else -1 if dv == -2 else dv
+            A[k] = [u + du, v + dv]
 
 print(f'part 1: {run(2)}')
 print(f'part 2: {run(10)}')
