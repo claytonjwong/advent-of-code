@@ -233,7 +233,9 @@ with open('input.txt') as input:
         A.append([int(x) for x in line.strip()])
 M, N = len(A), len(A[0])
 
+#
 # part 1
+#
 seen, key = set(), lambda i, j: f'{i},{j}'
 for i in range(M):
     l, r = -1, -1 # left/right
@@ -248,7 +250,9 @@ for j in range(N):
         if u < A[i][j]: u = A[i][j]; seen.add(key(i, j))
         if d < A[k][j]: d = A[k][j]; seen.add(key(k, j))
 
+#
 # part 2
+#
 best = 0
 for i in range(1, M - 1):
     for j in range(1, N - 1):
