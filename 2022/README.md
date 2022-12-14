@@ -349,9 +349,8 @@ x = 1
 t, take, msg = 0, set([20, 60, 100, 140, 180, 220]), [[]]
 for i in range(1, k):
     x += m[i]
+    t += i * x if i in take else 0
     msg[-1].append('#' if abs(x - len(msg[-1])) <= 1 else '.')
-    if i in take:
-        t += i * x
     if not (i % 40):
         msg.append([])
 
