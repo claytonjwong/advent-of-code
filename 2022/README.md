@@ -660,7 +660,7 @@ print(f'part 1: {best}')
 # part 1: 1651
 ```
 
-## []()
+## [Day 17: Pyroclastic Flow](https://adventofcode.com/2022/day/17)
 ```python
 class Rock:
     def __init__(self, have):
