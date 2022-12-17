@@ -7,14 +7,6 @@ class Rock:
         self.point = (0, 0) # bottom-left point
         self.have = have    # set of rock points relative to self.point
 
-    def left(self, dj = 0):
-        _, j = self.point; j += dj
-        return min(j + dj for _, dj in self.have)
-
-    def right(self, dj = 0):
-        _, j = self.point; j += dj
-        return max(j + dj for _, dj in self.have)
-
 class Chamber:
     def __init__(self):
         self.hi = -1
@@ -61,18 +53,19 @@ class Chamber:
 
     def blow(self, rock):
         dj = self.blows[self.k]; self.k = (self.k + 1) % len(self.blows) # k-th blow
-        if rock.left(dj) < 0 or 6 < rock.right(dj): # left/right chamber boundaries
-            return
         i, j = rock.point; j += dj
-        if all((i + di, j + dj) not in self.seen for di, dj in rock.have):
+        if self.ok(rock, i, j):
             rock.point = (i, j)
+            return
 
     def fall(self, rock):
         i, j = rock.point; i -= 1
-        if any(i + di < 0 or (i + di, j + dj) in self.seen for di, dj in rock.have):
-            return False
-        rock.point = (i, j)
-        return True
+        if self.ok(rock, i, j):
+            rock.point = (i, j)
+            return True
+        return False
+
+    ok = lambda self, rock, i, j: all(0 <= i + di and 0 <= j + dj <= 6 and (i + di, j + dj) not in self.seen for di, dj in rock.have)
 
     def mark(self, rock):
         i, j = rock.point
