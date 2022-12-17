@@ -716,7 +716,6 @@ class Chamber:
         i, j = rock.point; j += dj
         if self.ok(rock, i, j):
             rock.point = (i, j)
-            return
 
     def fall(self, rock):
         i, j = rock.point; i -= 1
