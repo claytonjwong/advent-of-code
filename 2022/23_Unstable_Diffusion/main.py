@@ -2,17 +2,11 @@
 # https://adventofcode.com/2022/day/23
 #
 
-import os
-os.chdir('/Users/claytonjwong/sandbox/advent-of-code/2022/23_Unstable_Diffusion')
-
 from collections import defaultdict
 
 have = set()
 with open('input.txt') as input:
-    for i, line in enumerate(input):
-        for j, c in enumerate(line.strip()):
-            if c == '#':
-                have.add((i, j))
+    [[have.add((i, j)) for j, c in enumerate(line.strip()) if c == '#'] for i, line in enumerate(input)]
 
 def empty_spaces():
     i, u = min(i for i, _ in have), max(i for i, _ in have)
@@ -23,7 +17,7 @@ part1, part2 = 0, 0
 d, dirs, round = 0, ['N', 'S', 'W', 'E'], 1
 while True:
     last, same = defaultdict(set), set()
-    for i, j in sorted(have):
+    for i, j in have:
         if not any(not (i == u and j == v) and (u, v) in have for v in [j - 1, j, j + 1] for u in [i - 1, i, i + 1]):
             same.add((i, j)) # none adjacent
             continue
@@ -39,9 +33,6 @@ while True:
             same.add((i, j)) # cannot move
             continue
         last[(u, v)].add((i, j))
-    if not len(last):
-        part2 = round
-        break
     have = same.copy()
     for next, prev in last.items():
         if len(prev) == 1:
@@ -50,6 +41,9 @@ while True:
             have |= prev
     if round == 10:
         part1 = empty_spaces()
+    if not len(last):
+        part2 = round
+        break
     d, round = (d + 1) % len(dirs), round + 1
 
 print(f'part 1: {part1}')
