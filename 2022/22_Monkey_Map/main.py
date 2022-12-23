@@ -49,11 +49,11 @@ class Walker:
         while steps:
             steps -= 1
             u, v = (self.i + di, self.j + dj)
-            if self.d == R and not self.step_right(u, v): break
-            if self.d == D and not self.step_down(u, v): break
-            if self.d == L and not self.step_left(u, v): break
-            if self.d == U and not self.step_up(u, v): break
-    def step_right(self, u, v):
+            if self.d == R and not self.step_R(u, v): break
+            if self.d == D and not self.step_D(u, v): break
+            if self.d == L and not self.step_L(u, v): break
+            if self.d == U and not self.step_U(u, v): break
+    def step_R(self, u, v):
         if 0 <= v < N and A[u][v] == '.': # step right
             self.j = v
             return True
@@ -65,7 +65,7 @@ class Walker:
                 self.j = v
                 return True
         return False
-    def step_down(self, u, v):
+    def step_D(self, u, v):
         if 0 <= u < M and A[u][v] == '.': # step down
             self.i = u
             return True
@@ -77,7 +77,7 @@ class Walker:
                 self.i = u
                 return True
         return False
-    def step_left(self, u, v):
+    def step_L(self, u, v):
         if 0 <= v < N and A[u][v] == '.': # step left
             self.j = v
             return True
@@ -89,7 +89,7 @@ class Walker:
                 self.j = v
                 return True
         return False
-    def step_up(self, u, v):
+    def step_U(self, u, v):
         if 0 <= u < M and A[u][v] == '.': # step up
             self.i = u
             return True
