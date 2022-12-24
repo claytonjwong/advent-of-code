@@ -16,32 +16,31 @@ def empty_spaces():
 part1, part2 = 0, 0
 d, dirs, round = 0, ['N', 'S', 'W', 'E'], 1
 while True:
-    last, same = defaultdict(set), set()
+    move, same = defaultdict(set), set()
     for i, j in have:
         if not any(not (i == u and j == v) and (u, v) in have for v in [j - 1, j, j + 1] for u in [i - 1, i, i + 1]):
             same.add((i, j)) # none adjacent
             continue
-        ok = False
         u, v = i, j
         for offset in range(len(dirs)):
             x = (d + offset) % len(dirs)
-            if dirs[x] == 'N' and not len(set([(i - 1, j - 1), (i - 1, j), (i - 1, j + 1)]).intersection(have)): ok = True; u = i - 1; break
-            if dirs[x] == 'S' and not len(set([(i + 1, j - 1), (i + 1, j), (i + 1, j + 1)]).intersection(have)): ok = True; u = i + 1; break
-            if dirs[x] == 'W' and not len(set([(i - 1, j - 1), (i, j - 1), (i + 1, j - 1)]).intersection(have)): ok = True; v = j - 1; break
-            if dirs[x] == 'E' and not len(set([(i - 1, j + 1), (i, j + 1), (i + 1, j + 1)]).intersection(have)): ok = True; v = j + 1; break
-        if not ok:
+            if dirs[x] == 'N' and not len(set([(i - 1, j - 1), (i - 1, j), (i - 1, j + 1)]).intersection(have)): u = i - 1; break
+            if dirs[x] == 'S' and not len(set([(i + 1, j - 1), (i + 1, j), (i + 1, j + 1)]).intersection(have)): u = i + 1; break
+            if dirs[x] == 'W' and not len(set([(i - 1, j - 1), (i, j - 1), (i + 1, j - 1)]).intersection(have)): v = j - 1; break
+            if dirs[x] == 'E' and not len(set([(i - 1, j + 1), (i, j + 1), (i + 1, j + 1)]).intersection(have)): v = j + 1; break
+        if u == i and v == j:
             same.add((i, j)) # cannot move
             continue
-        last[(u, v)].add((i, j))
+        move[(u, v)].add((i, j))
     have = same.copy()
-    for next, prev in last.items():
+    for next, prev in move.items():
         if len(prev) == 1:
             have.add(next)
         else:
             have |= prev
     if round == 10:
         part1 = empty_spaces()
-    if not len(last):
+    if not len(move):
         part2 = round
         break
     d, round = (d + 1) % len(dirs), round + 1
