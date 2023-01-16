@@ -1,6 +1,8 @@
 # AoC 2022
 * [adventofcode.com/2022](https://adventofcode.com/2022)
 
+![](stars.png)
+
 ---
 ## [Day 1: Calorie Counting](https://adventofcode.com/2022/day/1)
 ```python
