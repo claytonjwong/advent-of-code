@@ -27,3 +27,5 @@ with open('input.txt') as input:
 
 print(f'part 1: {t1}')
 print(f'part 2: {t2}')
+# part 1: 3059
+# part 2: 65371
