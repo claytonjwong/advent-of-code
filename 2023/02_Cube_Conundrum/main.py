@@ -12,7 +12,7 @@ def needs(subset):
     return need
 
 t1, t2 = 0, 0
-with open('/Users/claytonjwong/sandbox/advent-of-code/2023/02_Cube_Conundrum/input.txt') as input:
+with open('input.txt') as input:
     for line in input:
         game, values = line.split(':')
         num = int(game.split(' ')[1])
