@@ -3,6 +3,7 @@
 
 ---
 ## [Day 1: Trebuchet?!](https://adventofcode.com/2023/day/1)
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=PWZwvm19qoQ)
 ```python
 #
 # part 1
@@ -50,6 +51,7 @@ print(f'part 2: {t}')
 
 ---
 ## [Day 2: Cube Conundrum](https://adventofcode.com/2023/day/2)
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=upnpeBNr7p0)
 ```python
 from collections import Counter
 
