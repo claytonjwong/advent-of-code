@@ -57,8 +57,8 @@ from collections import Counter
 
 def needs(subset):
     need = Counter()
-    for groups in subset.split(','):
-        cnt, color = groups.strip().split(' ')
+    for group in subset.split(','):
+        cnt, color = group.strip().split(' ')
         need[color] = int(cnt)
     return need
 
