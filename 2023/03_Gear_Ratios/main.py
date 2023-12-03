@@ -8,8 +8,7 @@ M, N, adj = len(A), len(A[0]), lambda i, j: [(u, v) for u, v in [(i - 1, j - 1),
 
 class Number:
     def __init__(self):
-        self.val = 0
-        self.cells = set()
+        self.val = 0; self.cells = set()
     ok = lambda self: any(not A[u][v].isdigit() and A[u][v] != '.' for i, j in self.cells for u, v in adj(i, j))
 
 last, nums, gear = Number(), [], []
