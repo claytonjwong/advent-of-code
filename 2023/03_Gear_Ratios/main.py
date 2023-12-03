@@ -10,34 +10,22 @@ class Number:
     def __init__(self):
         self.val = 0
         self.cells = set()
-    def ok(self):
-        for i, j in self.cells:
-            for u, v in adj(i, j):
-                if not A[u][v].isdigit() and A[u][v] != '.':
-                    return True
-        return False
+    ok = lambda self: any(not A[u][v].isdigit() and A[u][v] != '.' for i, j in self.cells for u, v in adj(i, j))
 
 last, nums, gears = Number(), [], []
 for i in range(M):
     for j in range(N):
         if A[i][j].isdigit():
-            last.val = 10 * last.val + int(A[i][j])
-            last.cells.add((i, j))
+            last.val = 10 * last.val + int(A[i][j]); last.cells.add((i, j))
         else:
-            nums.append(copy.deepcopy(last))
-            last = Number()
+            nums.append(copy.deepcopy(last)); last = Number()
             if A[i][j] == '*':
                 gears.append((i, j))
 
 t1 = sum(num.val for num in nums if num.ok())
 t2 = 0
 for i, j in gears:
-    take = set()
-    for u, v in adj(i, j):
-        if A[u][v].isdigit():
-            for num in nums:
-                if (u, v) in num.cells:
-                    take.add(num)
+    take = set(num for u, v in adj(i, j) if A[u][v].isdigit() for num in nums if (u, v) in num.cells)
     if len(take) == 2:
         t2 += functools.reduce(operator.mul, [num.val for num in take])
 
