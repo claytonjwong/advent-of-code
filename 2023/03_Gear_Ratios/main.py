@@ -12,7 +12,7 @@ class Number:
         self.cells = set()
     ok = lambda self: any(not A[u][v].isdigit() and A[u][v] != '.' for i, j in self.cells for u, v in adj(i, j))
 
-last, nums, gears = Number(), [], []
+last, nums, gear = Number(), [], []
 for i in range(M):
     for j in range(N):
         if A[i][j].isdigit():
@@ -20,11 +20,11 @@ for i in range(M):
         else:
             nums.append(copy.deepcopy(last)); last = Number()
             if A[i][j] == '*':
-                gears.append((i, j))
+                gear.append((i, j))
 
 t1 = sum(num.val for num in nums if num.ok())
 t2 = 0
-for i, j in gears:
+for i, j in gear:
     take = set(num for u, v in adj(i, j) if A[u][v].isdigit() for num in nums if (u, v) in num.cells)
     if len(take) == 2:
         t2 += functools.reduce(operator.mul, [num.val for num in take])
