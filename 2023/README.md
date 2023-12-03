@@ -91,6 +91,8 @@ print(f'part 2: {t2}')
 
 ## [Day 3: Gear Ratios](https://adventofcode.com/2023/day/3)
 
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=0c697p_l3_g)
+
 ```python
 import copy, functools, operator
 
