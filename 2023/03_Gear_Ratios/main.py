@@ -4,7 +4,7 @@ A = []
 with open('input.txt') as input:
     for line in input:
         A.append(line.strip())
-M, N = len(A), len(A[0])
+M, N, adj = len(A), len(A[0]), lambda i, j: [(u, v) for u, v in [(i - 1, j - 1), (i - 1, j), (i - 1, j + 1), (i, j + 1), (i + 1, j + 1), (i + 1, j), (i + 1, j - 1), (i, j - 1)] if 0 <= u < M and 0 <= v < N]
 
 class Number:
     def __init__(self):
@@ -12,8 +12,8 @@ class Number:
         self.cells = set()
     def ok(self):
         for i, j in self.cells:
-            for u, v in [(i - 1, j - 1), (i - 1, j), (i - 1, j + 1), (i, j + 1), (i + 1, j + 1), (i + 1, j), (i + 1, j - 1), (i, j - 1)]:
-                if 0 <= u < M and 0 <= v < N and not A[u][v].isdigit() and A[u][v] != '.':
+            for u, v in adj(i, j):
+                if not A[u][v].isdigit() and A[u][v] != '.':
                     return True
         return False
 
@@ -33,8 +33,8 @@ t1 = sum(num.val for num in nums if num.ok())
 t2 = 0
 for i, j in gears:
     take = set()
-    for u, v in [(i - 1, j - 1), (i - 1, j), (i - 1, j + 1), (i, j + 1), (i + 1, j + 1), (i + 1, j), (i + 1, j - 1), (i, j - 1)]:
-        if 0 <= u < M and 0 <= v < N and A[u][v].isdigit():
+    for u, v in adj(i, j):
+        if A[u][v].isdigit():
             for num in nums:
                 if (u, v) in num.cells:
                     take.add(num)
