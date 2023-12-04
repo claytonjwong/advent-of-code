@@ -148,7 +148,7 @@ with open('input.txt') as input:
         need = set(int(s) for s in L.split(':')[1].split())
         have = set(int(s) for s in R.split())
         same = len(need & have)
-        t1 += 1 << (same - 1) if same else 0
+        t1 += 1 << same - 1 if same else 0
         for i in range(same):
             take = card + i + 1
             cnt[take] += cnt[card]
