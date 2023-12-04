@@ -142,9 +142,9 @@ cnt, hi = Counter(), 0
 with open('input.txt') as input:
     for line in input:
         L, R = line.strip().split('|')
-        num = int([s for s in L.split(':')[0].split(' ') if len(s)][1]); cnt[num] += 1; hi = max(hi, num)
-        need = set(int(s) for s in L.split(':')[1].split(' ') if len(s))
-        have = set(int(s) for s in R.split(' ') if len(s))
+        num = int([s for s in L.split(':')[0].split()][1]); cnt[num] += 1; hi = max(hi, num)
+        need = set(int(s) for s in L.split(':')[1].split())
+        have = set(int(s) for s in R.split())
         same = need & have
         t1 += 1 << (len(same) - 1) if len(same) else 0
         for i in range(len(same)):
