@@ -145,9 +145,9 @@ with open('input.txt') as input:
         card = int([s for s in L.split(':')[0].split()][1]); cnt[card] += 1; hi = max(hi, card)
         need = set(int(s) for s in L.split(':')[1].split())
         have = set(int(s) for s in R.split())
-        same = need & have
-        t1 += 1 << (len(same) - 1) if len(same) else 0
-        for i in range(len(same)):
+        same = len(need & have)
+        t1 += 1 << (same - 1) if same else 0
+        for i in range(same):
             take = card + i + 1
             cnt[take] += cnt[card]
 t2 = sum(freq for card, freq in cnt.items() if card <= hi)
