@@ -134,6 +134,8 @@ print(f'part 2: {t2}')
 
 ## [Day 4: Scratchcards](https://adventofcode.com/2023/day/4)
 
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=PDMwycgQ9uo)
+
 ```python
 from collections import Counter
 
