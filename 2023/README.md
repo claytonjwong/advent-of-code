@@ -132,7 +132,7 @@ print(f'part 2: {t2}')
 
 ---
 
-## [Day 4: ](https://adventofcode.com/2023/day/5)
+## [Day 4: Scratchcards](https://adventofcode.com/2023/day/4)
 
 ```python
 from collections import Counter
