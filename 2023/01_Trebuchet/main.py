@@ -7,18 +7,11 @@
 # part 1
 #
 
-def f(s, reverse = False):
-    n = len(s)
-    for i in reversed(range(n)) if reverse else range(n):
-        if s[i].isdigit():
-            return int(s[i])
-    return -1
-
 t = 0
 with open('input.txt') as input:
     for s in input:
-        beg, end = f(s), f(s, True)
-        t += int(f'{beg}{end}')
+        digits = [c for c in s if c.isdigit()]
+        t += int(f'{digits[0]}{digits[-1]}')
 print(f'part 1: {t}')
 
 
