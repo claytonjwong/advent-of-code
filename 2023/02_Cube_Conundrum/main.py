@@ -7,7 +7,7 @@ from collections import Counter
 def needs(subset):
     need = Counter()
     for group in subset.split(','):
-        cnt, color = group.strip().split(' ')
+        cnt, color = group.split()
         need[color] = int(cnt)
     return need
 
@@ -15,7 +15,7 @@ t1, t2 = 0, 0
 with open('input.txt') as input:
     for line in input:
         game, values = line.split(':')
-        num = int(game.split(' ')[1])
+        num = int(game.split()[1])
         subsets, ok = values.split(';'), True
         r, g, b = 1, 1, 1
         for subset in subsets:
