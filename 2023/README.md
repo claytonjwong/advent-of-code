@@ -107,18 +107,16 @@ class Number:
         self.val = 0; self.cells = set()
     ok = lambda self: any(not A[u][v].isdigit() and A[u][v] != '.' for i, j in self.cells for u, v in adj(i, j))
 
-last, nums, gear = Number(), [], []
+last, nums = Number(), []
 for i in range(M):
     for j in range(N):
         if A[i][j].isdigit():
             last.val = 10 * last.val + int(A[i][j]); last.cells.add((i, j))
         else:
             nums.append(copy.deepcopy(last)); last = Number()
-            if A[i][j] == '*':
-                gear.append((i, j))
-
 t1 = sum(num.val for num in nums if num.ok())
-t2 = 0
+
+t2, gear = 0, [(i, j) for i in range(M) for j in range(N) if A[i][j] == '*']
 for i, j in gear:
     take = set(num for u, v in adj(i, j) if A[u][v].isdigit() for num in nums if (u, v) in num.cells)
     if len(take) == 2:
