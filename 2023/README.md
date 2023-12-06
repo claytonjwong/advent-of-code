@@ -221,7 +221,6 @@ with open('input.txt') as input:
         for d in dist.split(':')[1].split(): D.append(int(d))
     for t, d in zip(T, D):
         wins.append(len([x for x in range(1, t) if d < x * (t - x)]))
-print(wins)
 part1 = reduce(operator.mul, wins)
 
 print(f'part 1: {part1}')
