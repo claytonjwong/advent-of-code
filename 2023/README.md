@@ -202,3 +202,33 @@ print(f'part 2: {best}')
 # part 2: question -- how to find minimum in a reasonable amount of time?
 # TODO: I think it's obvious, we must use overlapping intervals instead of trying hundreds of millions of different seeds!
 ```
+
+---
+
+## [Day 6: Wait For It](https://adventofcode.com/2023/day/6)
+
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=51nP8lQuaL4)
+
+```python
+import operator
+from functools import reduce
+
+T, D = [], []  # time and distance
+wins = []
+with open('input.txt') as input:
+    for time, dist in zip(input, input):
+        for t in time.split(':')[1].split(): T.append(int(t))
+        for d in dist.split(':')[1].split(): D.append(int(d))
+    for t, d in zip(T, D):
+        wins.append(len([x for x in range(1, t) if d < x * (t - x)]))
+print(wins)
+part1 = reduce(operator.mul, wins)
+
+print(f'part 1: {part1}')
+# part 1: 503424
+
+# TODO: for part 2 we will try binary search to find the point where we start succeeding
+# FFFFFFFTTTTTTTTTTTTFFFFFFFFF
+# goal   ^   👈 use binary search to find this point which we use to derive the answer for part2
+#        ^^^^^^^^^^^  symmetric bell curve for TRUE
+```
