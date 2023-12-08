@@ -289,6 +289,8 @@ print(f'part 2: {t2}')
 
 ## [Day 8: Haunted Wasteland](https://adventofcode.com/2023/day/8)
 
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=_193UASlqAs)
+
 ```python
 class Node:
     def __init__(self, name, L = None, R = None):
