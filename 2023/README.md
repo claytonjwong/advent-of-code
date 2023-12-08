@@ -233,7 +233,7 @@ print(f'part 1: {part1}')
 from functools import cmp_to_key
 from collections import Counter, defaultdict
 
-def type(hand):
+def kind(hand):
     cnt = Counter(hand).values()
     if 5 in cnt: return 'five of a kind'
     if 4 in cnt: return 'four of a kind'
@@ -245,13 +245,13 @@ def type(hand):
 
 def joke(hand):
     J = len([c for c in hand if c == 'J'])
-    if type(hand) == 'high card' and J: return 'one pair'
-    if type(hand) == 'one pair' and J: return 'three of a kind'
-    if type(hand) == 'two pair' and J: return 'full house' if J == 1 else 'four of a kind'
-    if type(hand) == 'three of a kind' and J: return 'four of a kind'
-    if type(hand) == 'full house' and J: return 'five of a kind'
-    if type(hand) == 'four of a kind' and J: return 'five of a kind'
-    return type(hand)
+    if kind(hand) == 'high card' and J: return 'one pair'
+    if kind(hand) == 'one pair' and J: return 'three of a kind'
+    if kind(hand) == 'two pair' and J: return 'full house' if J == 1 else 'four of a kind'
+    if kind(hand) == 'three of a kind' and J: return 'four of a kind'
+    if kind(hand) == 'full house' and J: return 'five of a kind'
+    if kind(hand) == 'four of a kind' and J: return 'five of a kind'
+    return kind(hand)
 
 A = []
 with open('input.txt') as input:
@@ -261,7 +261,7 @@ with open('input.txt') as input:
 m1 = defaultdict(list)
 m2 = defaultdict(list)
 for hand, bid in A:
-    m1[type(hand)].append((hand, bid))
+    m1[kind(hand)].append((hand, bid))
     m2[joke(hand)].append((hand, bid))
 
 def compare(a, b, points):
