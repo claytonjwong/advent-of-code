@@ -5,7 +5,7 @@ def kind(hand):
     cnt = Counter(hand).values()
     if 5 in cnt: return 'five of a kind'
     if 4 in cnt: return 'four of a kind'
-    if 2 in cnt and 3 in cnt: return 'full house'
+    if 3 in cnt and 2 in cnt: return 'full house'
     if 3 in cnt: return 'three of a kind'
     if 2 in cnt:
         return 'one pair' if len([freq for freq in cnt if freq == 2]) == 1 else 'two pair'
@@ -13,13 +13,13 @@ def kind(hand):
 
 def joke(hand):
     J = len([c for c in hand if c == 'J'])
-    if type(hand) == 'high card' and J: return 'one pair'
-    if type(hand) == 'one pair' and J: return 'three of a kind'
-    if type(hand) == 'two pair' and J: return 'full house' if J == 1 else 'four of a kind'
-    if type(hand) == 'three of a kind' and J: return 'four of a kind'
-    if type(hand) == 'full house' and J: return 'five of a kind'
-    if type(hand) == 'four of a kind' and J: return 'five of a kind'
-    return type(hand)
+    if kind(hand) == 'high card' and J: return 'one pair'
+    if kind(hand) == 'one pair' and J: return 'three of a kind'
+    if kind(hand) == 'two pair' and J: return 'full house' if J == 1 else 'four of a kind'
+    if kind(hand) == 'three of a kind' and J: return 'four of a kind'
+    if kind(hand) == 'full house' and J: return 'five of a kind'
+    if kind(hand) == 'four of a kind' and J: return 'five of a kind'
+    return kind(hand)
 
 A = []
 with open('input.txt') as input:
