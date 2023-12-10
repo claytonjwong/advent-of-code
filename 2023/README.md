@@ -364,6 +364,8 @@ print(f'part 2: {t2}')
 
 ## [Day 10: Pipe Maze](https://adventofcode.com/2023/day/10)
 
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=vB5bligWD5k)
+
 ```python
 from collections import deque
 
