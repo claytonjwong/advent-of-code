@@ -359,3 +359,57 @@ print(f'part 2: {t2}')
 # part 1: 1955513104
 # part 2: 1131
 ```
+
+---
+
+## [Day 10: Pipe Maze](https://adventofcode.com/2023/day/10)
+
+```python
+from collections import deque
+
+A = []
+with open('/Users/claytonjwong/sandbox/advent-of-code/2023/10_Pipe_Maze/input.txt') as input:
+    for line in input:
+        A.append(line.strip())
+M, N = len(A), len(A[0])
+
+q, seen, depth = deque([(i, j) for i in range(M) for j in range(N) if A[i][j] == 'S']), set(), 0
+while q:
+    ok = False
+    for _ in range(len(q)):
+        i, j = q.pop()
+        if (i, j) in seen:
+            continue
+        seen.add((i, j))
+
+        # .....
+        # .F-7.
+        # .|.|.
+        # .L-J.
+        # .....
+        UP = set(['F','|','7'])
+        DOWN = set(['L','|','J'])
+        LEFT = set(['L','-','F'])
+        RIGHT = set(['7','-','J'])
+
+        u, v = i - 1, j
+        if 0 <= u < M and 0 <= v < N and (u, v) not in seen and (A[i][j] in DOWN or A[i][j] == 'S') and A[u][v] in UP:
+            q.appendleft((u, v)); ok = True
+
+        u, v = i + 1, j
+        if 0 <= u < M and 0 <= v < N and (u, v) not in seen and (A[i][j] in UP or A[i][j] == 'S') and A[u][v] in DOWN:
+            q.appendleft((u, v)); ok = True
+
+        u, v = i, j - 1
+        if 0 <= u < M and 0 <= v < N and (u, v) not in seen and (A[i][j] in RIGHT or A[i][j] == 'S') and A[u][v] in LEFT:
+            q.appendleft((u, v)); ok = True
+
+        u, v = i, j + 1
+        if 0 <= u < M and 0 <= v < N and (u, v) not in seen and (A[i][j] in LEFT or A[i][j] == 'S') and A[u][v] in RIGHT:
+            q.appendleft((u, v)); ok = True
+
+    depth += int(ok)
+
+print(f'part 1: {depth}')
+# part 1: 7173
+```
