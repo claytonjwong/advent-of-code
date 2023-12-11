@@ -413,6 +413,8 @@ print(f'part 1: {depth}')
 
 ## [Day 11: Cosmic Expansion](https://adventofcode.com/2023/day/11)
 
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=3agu03IKynM)
+
 ```python
 A = []
 with open('/Users/claytonjwong/sandbox/advent-of-code/2023/11_Cosmic_Expansion/input.txt') as input:
