@@ -370,7 +370,7 @@ print(f'part 2: {t2}')
 from collections import deque
 
 A = []
-with open('/Users/claytonjwong/sandbox/advent-of-code/2023/10_Pipe_Maze/input.txt') as input:
+with open('input.txt') as input:
     for line in input:
         A.append(line.strip())
 M, N = len(A), len(A[0])
@@ -417,7 +417,7 @@ print(f'part 1: {depth}')
 
 ```python
 A = []
-with open('/Users/claytonjwong/sandbox/advent-of-code/2023/11_Cosmic_Expansion/input.txt') as input:
+with open('input.txt') as input:
     for line in input:
         A.append(line.strip())
 M, N = len(A), len(A[0])
