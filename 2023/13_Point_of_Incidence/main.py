@@ -1,3 +1,6 @@
+# 3:22pm - part 2
+# 3:28pm - 3621957 is too high
+
 matrix = []
 with open('input.txt') as input:
     A = []
@@ -27,10 +30,8 @@ def col(A):
     j = row(rotate(A))
     return N - j if j else 0
 
-rows, cols = 0, 0
-for A in matrix:
-    rows += row(A)
-    cols += col(A)
+rows1 = sum(row(A) for A in matrix)
+cols1 = sum(col(A) for A in matrix)
 
-print(f'part 1: {100 * rows + cols}')
+print(f'part 1: {100 * rows1 + cols1}')
 # part 1: 32371
