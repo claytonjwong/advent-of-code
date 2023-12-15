@@ -449,6 +449,8 @@ print(f'part 2: {t2 // 2}')
 
 ## [Day 12: Hot Springs](https://adventofcode.com/2023/day/12)
 
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=J68sq712ArE)
+
 ```python
 A = []
 with open('input.txt') as input:
