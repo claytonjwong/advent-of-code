@@ -479,6 +479,8 @@ print(f'part 1: {t1}')
 
 ## [Day 13: Point of Incidence](https://adventofcode.com/2023/day/13)
 
+* [🎨 YouTube ScreenShare 👀](https://www.youtube.com/watch?v=aEoqzSa_eQE)
+
 ```python
 matrix = []
 with open('input.txt') as input:
