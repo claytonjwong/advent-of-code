@@ -522,7 +522,7 @@ print(f'part 1: {100 * rows1 + cols1}')
 
 ---
 
-[Day 14: Parabolic Reflector Dish](https://adventofcode.com/2023/day/14)
+## [Day 14: Parabolic Reflector Dish](https://adventofcode.com/2023/day/14)
 
 ```python
 A = []
