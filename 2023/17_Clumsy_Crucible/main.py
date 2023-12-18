@@ -17,6 +17,8 @@
 # seen can be set of seen i,j cells -> we can perform a scan of the matrix in M*N time
 
 # I think that sounds like a better game plan, let's take a break and come back...
+# question: how to enforce the 3 in the same direction rule? +onto the queue element the last_i, last_j, and step count ?
+# then we can derive the +1 step for steps in the same direction
 
 from functools import cache
 
