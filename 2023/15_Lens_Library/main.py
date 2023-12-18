@@ -27,7 +27,7 @@
 from collections import Counter
 
 A = []
-with open('/Users/claytonjwong/sandbox/advent-of-code/2023/15_Lens_Library/input.txt') as input:
+with open('input.txt') as input:
     for line in input:
         A = line.strip().split(',')
 
