@@ -1,5 +1,3 @@
-from collections import Counter
-
 A = []
 with open('input.txt') as input:
     for line in input:
