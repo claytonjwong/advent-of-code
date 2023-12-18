@@ -8,10 +8,6 @@ def f(s, t = 0):
         t = ((t + ord(c)) * 17) % 256
     return t
 
-t1 = sum(f(s) for s in A)
-print(f'part 1: {t1}')
-# part 1: 514281
-
 box = [[] for _ in range(256)]
 for s in A:
     if s.endswith('-'):
@@ -19,19 +15,18 @@ for s in A:
         i = f(k)
         box[i] = [(key, val) for key, val in box[i] if key != k]
     else:
-        k, v = s.split('=')
+        k, v = s.split('='); v = int(v)
         i = f(k)
         found = False
         for j, (key, val) in enumerate(box[i]):
             if key == k:
-                box[i][j] = (k, int(v)); found = True
+                box[i][j] = (k, v); found = True
         if not found:
-            box[i].append((k, int(v)))
+            box[i].append((k, v))
 
-t2 = 0
-for i in range(len(box)):
-    for j in range(len(box[i])):
-        _, v = box[i][j]
-        t2 += (i + 1) * (j + 1) * v
+t1 = sum(f(s) for s in A)
+t2 = sum((i + 1) * (j + 1) * box[i][j][1] for i in range(len(box)) for j in range(len(box[i])))
+print(f'part 1: {t1}')
 print(f'part 2: {t2}')
+# part 1: 514281
 # part 2: 244199
