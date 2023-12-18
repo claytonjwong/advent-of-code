@@ -1,12 +1,11 @@
+from functools import reduce
+
 A = []
 with open('input.txt') as input:
     for line in input:
         A = line.strip().split(',')
 
-def f(s, t = 0):
-    for c in s:
-        t = ((t + ord(c)) * 17) % 256
-    return t
+f = lambda s: reduce(lambda t, c: (t + ord(c)) * 17 % 256, s, 0)
 
 box = [[] for _ in range(256)]
 for s in A:
