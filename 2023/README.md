@@ -704,7 +704,7 @@ print(f'part 2: {run(4, 10)}')
 
 ## [Day 18: Lavaduct Lagoon](https://adventofcode.com/2023/day/18)
 
-```python3
+```python
 import sys
 sys.setrecursionlimit(int(1e6))
 
