@@ -7,7 +7,7 @@ with open('input.txt') as input:
 M, N = len(A), len(A[0])
 
 def run(lo, hi):
-    def enqueue(q, dist, i, j, du, dv, step):
+    def enqueue(dist, i, j, du, dv, step):
         u = i + du
         v = j + dv
         if 0 <= u < M and 0 <= v < N:
@@ -21,11 +21,11 @@ def run(lo, hi):
             continue
         seen.add((i, j, di, dj, step))
         if step < hi and (di, dj) != (0, 0):                        # same direction (di, dj): 🚫 hi step maximum contraint
-            enqueue(q, dist, i, j, di, dj, step + 1)
+            enqueue(dist, i, j, di, dj, step + 1)
         if lo <= step or (di, dj) == (0, 0):
             for du, dv in [(-1, 0), (0, 1), (1, 0), (0, -1)]:       # diff direction (du, dv): 🌱 first step
                 if (du, dv) != (di, dj) and (du, dv) != (-di, -dj):
-                    enqueue(q, dist, i, j, du, dv, step=1)
+                    enqueue(dist, i, j, du, dv, step=1)
 
 print(f'part 1: {run(1, 3)}')
 print(f'part 2: {run(4, 10)}')
