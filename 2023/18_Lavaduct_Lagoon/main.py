@@ -9,6 +9,8 @@
 
 # 12:50pm => ~22 minutes for wrong answer
 
+# 12:51pm => oops, I need to remove outside from above and below as well...
+
 i, j = 0, 0
 have, first = set([(0, 0)]), True
 with open('input.txt') as input:
@@ -24,16 +26,30 @@ with open('input.txt') as input:
 
 lo_i, hi_i = min(i for i, _ in have), max(i for i, _ in have)
 lo_j, hi_j = min(j for _, j in have), max(j for _, j in have)
-t, outside = (hi_i - lo_i + 1) * (hi_j - lo_j + 1), 0
+
 for i in range(lo_i, hi_i + 1):
-    for j in range(lo_j, hi_j + 1):
-        if (i, j) in have:
-            break
-        outside += 1
-    for j in reversed(range(lo_j, hi_j + 1)):
-        if (i, j) in have:
-            break
-        outside += 1
-inside = t - outside
-print(f'part 1: {inside}')
+    print(''.join(['#' if (i, j) in have else '.' for j in range(lo_j, hi_j + 1)]))
+
+# t, outside = (hi_i - lo_i + 1) * (hi_j - lo_j + 1), 0
+# for i in range(lo_i, hi_i + 1):
+#     for j in range(lo_j, hi_j + 1):
+#         if (i, j) in have:
+#             break
+#         outside += 1
+#     for j in reversed(range(lo_j, hi_j + 1)):
+#         if (i, j) in have:
+#             break
+#         outside += 1
+# for j in range(lo_j, hi_j + 1):
+#     for i in range(lo_i, hi_i + 1):
+#         if (i, j) in have:
+#             break
+#         outside += 1
+#     for i in reversed(range(lo_i, hi_i + 1)):
+#         if (i, j) in have:
+#             break
+#         outside += 1
+# inside = t - outside
+# print(f'part 1: {inside}')
 # part 1: 68624 is too high
+# part 1: 24445 is too low
