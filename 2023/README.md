@@ -662,7 +662,7 @@ print(f'part 2: {t2}')
 
 ---
 
-## []
+## [Day 17: Clumsy Crucible](https://adventofcode.com/2023/day/17)
 
 ```python
 from heapq import heappop, heappush
