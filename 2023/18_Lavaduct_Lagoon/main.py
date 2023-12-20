@@ -16,7 +16,7 @@ with open('input.txt') as input:
 lo_i, hi_i = min(i for i, _ in have), max(i for i, _ in have)
 lo_j, hi_j = min(j for _, j in have), max(j for _, j in have)
 
-def go(i = lo_i + 69, j = lo_j + 69):  # DFS from an arbitrary point inside the lagoon
+def go(i = lo_i + 69, j = lo_j + 69):  # 🎲 start from an arbitrary point inside the lagoon
     if (i, j) in have:
         return
     have.add((i, j))
