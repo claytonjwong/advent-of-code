@@ -705,33 +705,29 @@ print(f'part 2: {run(4, 10)}')
 ## [Day 18: Lavaduct Lagoon](https://adventofcode.com/2023/day/18)
 
 ```python
-import sys
-sys.setrecursionlimit(int(1e6))
+# https://en.wikipedia.org/wiki/Shoelace_formula
+segments = lambda V: zip(V, V[1:] + [V[0]])
+shoelace = lambda V: abs(sum((x1 * y2) - (x2 * y1) for ((x1, y1), (x2, y2)) in segments(V))) // 2
 
-i, j = 0, 0
-have, first = set([(0, 0)]), True
-with open('input.txt') as input:
-    for line in input:
-        d, cnt, color = line.split(); cnt = int(cnt)
-        if first:
-            cnt -= 1; first = False
-        di, dj = (-1, 0) if d == 'U' else (1, 0) if d == 'D' else (0, -1) if d == 'L' else (0, 1)
-        for _ in range(cnt):
-            i += di
-            j += dj
-            have.add((i, j))
-lo_i, hi_i = min(i for i, _ in have), max(i for i, _ in have)
-lo_j, hi_j = min(j for _, j in have), max(j for _, j in have)
+def run(part1=True):
+    i, j = 0, 0
+    V, P = [(i, j)], 0  # Vertices, Perimeter
+    with open('input.txt') as input:
+        for line in input:
+            d, step, color = line.split(); step = int(step)
+            if not part1:
+                step, last = int(color[2:-2], 16), int(color[-2])
+                d = 'R' if last == 0 else 'D' if last == 1 else 'L' if last == 2 else 'U'
+            di, dj = (-1, 0) if d == 'U' else (1, 0) if d == 'D' else (0, -1) if d == 'L' else (0, 1)
+            i += di * step
+            j += dj * step
+            V.append((i, j)); P += step
+    return shoelace(V) + (P // 2) + 1
 
-def go(i = lo_i + 69, j = lo_j + 69):  # 🎲 start from an arbitrary point inside the lagoon
-    if (i, j) in have:
-        return
-    have.add((i, j))
-    for u, v in [(i - 1, j), (i, j + 1), (i + 1, j), (i, j - 1)]:
-        go(u, v)
-go()
-print(f'part 1: {len(have)}')
+print(f'part 1: {run(True)}')
+print(f'part 2: {run(False)}')
 # part 1: 47045
+# part 2: 147839570293376
 ```
 
 ---
