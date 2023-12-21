@@ -722,7 +722,7 @@ def run(part1=True):
             i += di * step
             j += dj * step
             V.append((i, j)); P += step
-    return shoelace(V) + (P // 2) + 1
+    return shoelace(V) + (P // 2) + 1  # P / 2 because half of the perimeter is already included in the shoelace area
 
 print(f'part 1: {run(True)}')
 print(f'part 2: {run(False)}')
