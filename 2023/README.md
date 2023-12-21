@@ -771,6 +771,8 @@ print(f'part 1: {t1}')
 
 ---
 
+## [Day 20: Pulse Propagation](https://adventofcode.com/2023/day/20)
+
 ```python
 from collections import Counter, deque
 class Module:
