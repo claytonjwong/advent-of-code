@@ -4,6 +4,8 @@
 # 10:13am - implementation completed a few minutes ago, I lost track, and started debugging LOL
 # 10:23am - ok take a break and debug, something is not quite right here...
 
+# 12:39pm - ok simple mistake, I was only counting signals send to output, not all signals sent total between any modules!
+
 # game plan:
 
 # Flip-flop modules (prefix %) are either on or off; they are initially off. If a flip-flop module receives a high pulse, it is ignored and nothing happens. However, if a flip-flop module receives a low pulse, it flips between on and off. If it was off, it turns on and sends a high pulse. If it was on, it turns off and sends a low pulse.
@@ -70,51 +72,47 @@
 # count low/hi pulses send to output and multiply them as the answer for part 1
 
 from collections import Counter, defaultdict, deque
-
-INPUT = 'broadcaster'
-OUTPUT = 'output'
-
 class Module:
-    def __init__(self, name, kind, kids):
+    def __init__(self, name='sentinel', kind='!', kids=[]):
         self.name = name
         self.kind = kind
         self.parents, self.kids = {}, kids
         self.state = 0            # 0 == off  and  1 == on
     def process(self, val, last):
-        if self.kind == '*':      # broadcast module
+        if self.kind == '*':      # 📢 broadcast module
             return [(kid, val, self.name) for kid in self.kids]
-        if self.kind == '%':      # flip-flop module
+        if self.kind == '%':      # 🩴 flip-flop module
             if val == 1:
-                return            # high-pulse is ignored
-            self.state ^= 1       # flip on/off state
+                return            # 💥 high-pulse is ignored
+            self.state ^= 1       # 🙃 flip on/off state 👍👎
             return [(kid, self.state, self.name) for kid in self.kids]
-        if self.kind == '&':      # conjunction module
+        if self.kind == '&':      # 🌈 conjunction module
             self.parents[last] = val
             return [(kid, 0 if all(self.parents.values()) else 1, self.name) for kid in self.kids]
 
-m = {OUTPUT: Module('sentinel', '!', [])}
+m = defaultdict(Module)
 with open('/Users/claytonjwong/sandbox/advent-of-code/2023/20_Pulse_Propagation/input.txt') as input:
     for line in input:
         L, R = line.strip().split(' -> ')
-        kind, name = (L[0], L[1:]) if L != INPUT else ('*', INPUT)
+        kind, name = (L[0], L[1:]) if L != 'broadcaster' else ('*', 'broadcaster')
         kids = R.split(', ')
         m[name] = Module(name, kind, kids)
     for name in m.keys():
         for kid in m[name].kids:
-            m[kid].parents[name] = 0
+            if kid in m:
+                m[kid].parents[name] = 0
 
 cnt = Counter()
 def run():
-    q = deque([(INPUT, 0, 'input button')])  # to name, pulse value, from last name
+    q = deque([('broadcaster', 0, 'Make it so! Engage! 🚀')])  # to name, pulse value, from last name
     while q:
         name, val, last = q.popleft()
-        if name == OUTPUT:
-            cnt[val] += 1; continue
+        cnt[val] += 1
         next = m[name].process(val, last)
         if next:
             q.extend(next)
-
-for _ in range(1000):
+for i in range(1000):
     run()
-
-print(cnt)
+t = cnt[0] * cnt[1]
+print(f'part 1: {t}')
+# part 1: 1020211150
