@@ -36,7 +36,7 @@ def run(steps):
                 if 0 <= u < M and 0 <= v < N and (u, v) not in seen and (A[u][v] == '.' or A[u][v] == 'S'):
                     next.append((u, v)); seen.add((u, v))
         q.extend(next); depth += 1
-    dist = lambda i, j, u, v: abs(i - u) + abs(j - v)
-    ok = lambda i, j, u, v, steps: not dist(i, j, u, v) or ((steps & 1) == (dist(i, j, u, v) & 1))  # both even or both odd
+    dist = lambda i, j, u, v: abs(i - u) + abs(j - v)                                               # manhattan distance from cell i,j to cell u,v
+    ok = lambda i, j, u, v, steps: not dist(i, j, u, v) or ((steps & 1) == (dist(i, j, u, v) & 1))  # ok IFF origin xor steps and distance are both even inclusive-or both odd, ie. we can step back-and-forth an even amount of times: 0,2,4,6,etc for even steps from origin and 1,3,5,7,etc for odd steps from origin
     return len([(i, j) for i, j in seen if ok(i, j, S[0], S[1], steps)])
 print(f'part 1: {run(64)}')
