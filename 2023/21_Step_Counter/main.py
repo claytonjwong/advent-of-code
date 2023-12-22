@@ -1,22 +1,3 @@
-# 9:12am - read problem statement
-
-# game plan:
-
-# kinda lame to see BFS again... same old same old is getting boring, but whatever, let's jam!
-
-# 9:14am - implementation begins
-# so I need to track if the steps away from origin are evenly divisible by the number of steps
-# ok write distance function and write ok function if distance is evenly divisible
-
-# 9:25am - implementation ended a few minutes ago and automatically
-#          logical reasoning + debugging begins, my count of seen is higher than expected 👻 (I see 21 but expect 16)
-
-# 9:45am - oops, ok my ok function was incorrect, instead of taking into account even divisibility, we just need to
-#          check if both are even or odd, since we could potentially hop back-and-forth an even amount of steps,
-#          ie. 0,2,4,6,etc,steps away are all ok with an even amount of steps from the origin
-#              1,3,5,7,etc,steps away are all ok with an odd amount of steps from the origin
-# 9:47am - part 1 accpted, yay! 🙂
-
 from collections import deque
 
 A = []
@@ -36,7 +17,8 @@ def run(steps):
                 if 0 <= u < M and 0 <= v < N and (u, v) not in seen and (A[u][v] == '.' or A[u][v] == 'S'):
                     next.append((u, v)); seen.add((u, v))
         q.extend(next); depth += 1
-    dist = lambda i, j, u, v: abs(i - u) + abs(j - v)                                               # manhattan distance from cell i,j to cell u,v
-    ok = lambda i, j, u, v, steps: not dist(i, j, u, v) or ((steps & 1) == (dist(i, j, u, v) & 1))  # ok IFF origin xor steps and distance are both even inclusive-or both odd, ie. we can step back-and-forth an even amount of times: 0,2,4,6,etc for even steps from origin and 1,3,5,7,etc for odd steps from origin
+    dist = lambda i, j, u, v: abs(i - u) + abs(j - v)                     # manhattan distance from cell i,j to cell u,v
+    ok = lambda i, j, u, v, steps: steps & 1 == dist(i, j, u, v) & 1      # steps and distance are both even inclusive-or both odd, ie. we can step back-and-forth an even amount of times: distances of 0,2,4,6,etc from origin for even steps from origin and distances of 1,3,5,7,etc from origin for odd steps from origin
     return len([(i, j) for i, j in seen if ok(i, j, S[0], S[1], steps)])
 print(f'part 1: {run(64)}')
+# part 1: 3740
