@@ -1,5 +1,5 @@
 import sys
-sys.setrecursionlimit(int(1e6))
+sys.setrecursionlimit(int(1e5))
 
 A = []
 with open('input.txt') as input:
@@ -16,8 +16,8 @@ def go(i = S[0], j = S[1], k = 0):
         return k
     if i < 0 or j < 0 or i == M or j == N or A[i][j] == '#' or (i, j) in seen:
         return 0
-    seen.add((i, j))
     best = 0
+    seen.add((i, j))
     if   A[i][j] == '^': best = go(i - 1, j, k + 1)
     elif A[i][j] == '>': best = go(i, j + 1, k + 1)
     elif A[i][j] == 'v': best = go(i + 1, j, k + 1)
