@@ -1,6 +1,8 @@
 # AoC 2023
 * [adventofcode.com/2023](https://adventofcode.com/2023)
 
+![](stars.png)
+
 ---
 
 ## [Day 1: Trebuchet?!](https://adventofcode.com/2023/day/1)
