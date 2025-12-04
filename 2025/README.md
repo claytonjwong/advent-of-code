@@ -17,14 +17,10 @@ with open('input.txt') as input:
         dx = -1 if s[0] == 'L' else 1
         while x:
             dial += dx; x -= 1
-            if dial == 100:
-                dial = 0
-            if dial == -1:
-                dial = 99
-            if not dial:
-                part2 += 1
-        if not dial:
-            part1 += 1
+            if dial == -1: dial = 99  # wrap-around left
+            if dial == 100: dial = 0  # wrap-around right
+            part2 += 1 if not dial else 0
+        part1 += 1 if not dial else 0
 print(f'part 1: {part1}')
 print(f'part 2: {part2}')
 
