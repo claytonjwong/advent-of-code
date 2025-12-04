@@ -3,12 +3,12 @@
 #
 
 A = []
-with open('example.txt') as input:
+with open('input.txt') as input:
     for s in input:
-        A.append(s)
+        A.append(list(s))
 M, N = len(A), len(A[0])
 
-def can_access(i, j):
+def ok(i, j):
     if A[i][j] != '@':
         return False
     cnt = 0
@@ -17,14 +17,18 @@ def can_access(i, j):
             cnt += 1
     return cnt < 4
 
-lines = []
-for i in range(M):
-    line = []
-    for j in range(N):
-        line.append('x' if can_access(i, j) else A[i][j])
-    lines.append(''.join(line).strip())
-for line in lines:
-    print(line)
+def reduce_rolls():
+    cnt, found = 0, True
+    while found:
+        found = False
+        for i in range(M):
+            for j in range(N):
+                if ok(i, j):
+                    A[i][j] = '.'; cnt += 1; found = True
+    return cnt
 
-part1 = sum(int(can_access(i, j)) for i in range(M) for j in range(N))
-print(f'part1: {part1}')
+part1 = sum(ok(i, j) for i in range(M) for j in range(N))
+part2 = reduce_rolls()
+
+print(f'part 1: {part1}')
+print(f'part 2: {part2}')
