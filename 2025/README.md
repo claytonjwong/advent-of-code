@@ -168,7 +168,7 @@ with open('input.txt') as input:
 m = SortedDict()
 
 def merge(i, j, u, v):
-    ok = lambda i, j, u, v: (i, j) != (u, v) and max(i, u) <= min(j, v)  # ok to merge intervals i..j and u..v?
+    ok = lambda i, j, u, v: max(i, u) <= min(j, v)  # ok to merge intervals i..j and u..v?
     if not ok(i, j, u, v):
         return False
     if m.get(i): m.pop(i)
