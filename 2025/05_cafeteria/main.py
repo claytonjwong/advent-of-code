@@ -32,8 +32,8 @@ for i, j in A:
     found = True
     while found:
         found = False
-        k = m.bisect_left(i)
         m[i] = max(j, m.get(i) or 0)
+        k = m.bisect_left(i)
         for cand in [k - 1, k + 1]:  # merge candidates u..v adjacent to i..j interval insertion index k
             if 0 <= cand < len(m):
                 u, v = m.peekitem(cand)
