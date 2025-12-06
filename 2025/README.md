@@ -64,7 +64,6 @@ print(f'part 2: {part2}')
 
 # part 1: 44854383294
 # part 2: 55647141923
-
 ```
 
 ## [Day 3: Lobby](https://adventofcode.com/2025/day/3)
