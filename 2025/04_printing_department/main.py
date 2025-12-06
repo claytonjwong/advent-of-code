@@ -32,3 +32,6 @@ part2 = reduce_rolls()
 
 print(f'part 1: {part1}')
 print(f'part 2: {part2}')
+
+# part 1: 1389
+# part 2: 9000
