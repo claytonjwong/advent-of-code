@@ -31,7 +31,7 @@ for i in range(1, M):
             if j + 1 < N: dp[i][j + 1] += dp[i - 1][j]  # num ways to-the-right of '^' += num ways above '^'
 
 print(f'part 1: {len(S)}')
-print(f'part 2: {sum(dp[M - 2])}')
+print(f'part 2: {sum(dp[M - 1])}')
 
 # part 1: 1581
 # part 2: 73007003089792
