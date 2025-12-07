@@ -268,7 +268,7 @@ for i in range(1, M):
         if A[i][j] == '.':
             dp[i][j] += dp[i - 1][j]
         if A[i][j] == '^':
-            if dp[i - 1][j]:  # Part 1: if we can reach the splitter (ie. num ways above '^' is greater than 0), then add cell (i,j) to set S
+            if dp[i - 1][j]:  # Part 1: if we can reach the splitter (ie. num ways above '^' is strictly greater-than 0), then add cell (i,j) to set S
                 S.add((i, j))
             if 0 <= j - 1: dp[i][j - 1] += dp[i - 1][j]  # num ways to-the-left of '^' += num ways above '^'
             if j + 1 < N: dp[i][j + 1] += dp[i - 1][j]  # num ways to-the-right of '^' += num ways above '^'
