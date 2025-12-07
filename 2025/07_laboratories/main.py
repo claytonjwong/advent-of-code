@@ -19,7 +19,7 @@ M, N = len(A), len(A[0])
 # note: this is the same as current dp[i][j] and previous dp[i - 1][j] -- let's use whichever makes our life more simple! remember KISS == keep it super simple
 
 S = set()
-dp = [[int(A[i][j] == 'S') for j in range(N)] for i in range(M)]  # Part 2: num ways to each each cell (i,j)
+dp = [[int(A[i][j] == 'S') for j in range(N)] for i in range(M)]  # Part 2: num ways to each cell (i,j)
 for i in range(1, M):
     for j in range(N):
         if A[i][j] == '.':
