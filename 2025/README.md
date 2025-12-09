@@ -280,7 +280,7 @@ print(f'part 2: {sum(dp[M - 1])}')
 # part 2: 73007003089792
 ```
 
-## [Day 08: Playground](https://adventofcode.com/2025/day/8)
+## [Day 8: Playground](https://adventofcode.com/2025/day/8)
 
 ```python
 from collections import Counter
