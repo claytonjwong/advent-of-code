@@ -39,7 +39,6 @@ class Machine:
             for _ in range(k):
                 cur = q.popleft()
                 if key(cur) == key(finish):
-                    finished += 1
                     return depth
                 for toggles in self.buttons:
                     next = cur[:]
@@ -51,16 +50,16 @@ class Machine:
         return -1
 
 A = []
-with open('input.txt') as input:
+with open('example.txt') as input:
     for s in input:
-        goal = []
+        lights = []
         buttons = []
         joltages = []
         for token in s.strip().split(' '):
-            if token[0] == '[': goal = [1 if c == '#' else 0 for c in token[1:-1]]
+            if token[0] == '[': lights = [1 if c == '#' else 0 for c in token[1:-1]]
             if token[0] == '(': buttons.append([int(x) for x in token[1:-1].split(',')])
             if token[0] == '{': joltages = [int(x) for x in token[1:-1].split(',')]
-        A.append(Machine(goal, buttons, joltages))
+        A.append(Machine(lights, buttons, joltages))
 
 part1 = sum(it.toggle_lights() for it in A)
 part2 = sum(it.config_joltage() for it in A)
