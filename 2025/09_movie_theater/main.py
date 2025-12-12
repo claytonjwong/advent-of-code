@@ -60,12 +60,10 @@ for i in range(len(P)):
     for j in range(i + 1, len(P)):
         x1, y1 = P[i]
         x2, y2 = P[j]
-        sides = set()
-        [sides.add((x, y1)) and sides.add((x, y2)) for x in range(min(x1, x2), max(x1, x2) + 1)]
-        [sides.add((x1, y)) and sides.add((x2, y)) for y in range(min(y1, y2), max(y1, y2) + 1)]
-        if not len(sides & O):  # if there is no intersection between the rectangle sides and outside points
+        ok =    not any((x, y1) in O or (x, y2) in O for x in range(min(x1, x2), max(x1, x2) + 1)) \
+            and not any((x1, y) in O or (x2, y) in O for y in range(min(y1, y2), max(y1, y2) + 1))
+        if ok:  # ok if there is no intersection between the rectangle sides and outside points
             part2 = max(part2, area(x1, y1, x2, y2))
-
 print(f'part 2: {part2}')
 
 # part 1: 4777816465
