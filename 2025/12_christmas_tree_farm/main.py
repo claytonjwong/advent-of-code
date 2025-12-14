@@ -3,6 +3,8 @@
 #
 
 from collections import defaultdict
+import sys
+sys.setrecursionlimit(int(1e9))
 
 m = defaultdict(list)
 puzzles = []
@@ -48,10 +50,10 @@ for id, shapes in m.items():
                 rotated.append(shape); seen.add(key(shape))
     shapes.extend(rotated)
 
-for id, shapes in m.items():
-    print(f'id: {id} has {len(shapes)} shapes')
-    for shape in shapes:
-        pretty_print(shape)
+# for id, shapes in m.items():
+#     print(f'id: {id} has {len(shapes)} shapes')
+#     for shape in shapes:
+#         pretty_print(shape)
 
 def add(A, i, j, shape):
     M, N = len(A), len(A[0])
@@ -69,14 +71,37 @@ def remove(A, i, j, shape):
     ok = True
     for u in range(3):
         for v in range(3):
-            if A[i + u][j + v] != shape[u][v]:
+            if A[i + u][j + v] == '#' and shape[u][v] == '.':  # shape must have corrsponding #
                 ok = False
     if not ok:
-        return False
+        return False  # mismatch between A and shape to remove at i,j
     for u in range(3):
         for v in range(3):
             A[i + u][j + v] = '.' if shape[u][v] == '#' else A[i + u][j + v]
     return True
 
 for puzzle in puzzles:
-    print(puzzle)
+    M, N, need = puzzle
+    A = [['.'] * N for _ in range(M)]
+    def go(i, j, id):
+        if j == N: # wrap around to next row
+            return go(i + 1, 0, id)
+        if id == len(need): # all shape id we need have been placed in A
+            return True
+        if not need[id]:
+            return go(0, 0, id + 1)
+        include, exclude = False, False
+        for shape in m[id]:
+            if add(A, i, j, shape):
+                need[id] -= 1
+                if go(i, j + 1, id):
+                    include = True
+                need[id] += 1
+                if not remove(A, i, j, shape):
+                    assert('cannot remove shape added for {id}:\n{pretty_print(shape)}')
+        exclude = go(i, j + 1, id) # move on to next cell
+        return include or exclude
+    if go(0, 0, 0):
+        print('ok')
+    else:
+        print('ng')
