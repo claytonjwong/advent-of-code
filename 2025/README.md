@@ -503,10 +503,6 @@ print(f'part 1: {go()}')
 ## [Day 12: Christmas Tree Farm](https://adventofcode.com/2025/day/12)
 
 ```python
-#
-# https://adventofcode.com/2025/day/12
-#
-
 from collections import defaultdict
 
 cnt = defaultdict(int)
