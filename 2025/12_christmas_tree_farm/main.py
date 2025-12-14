@@ -3,105 +3,30 @@
 #
 
 from collections import defaultdict
-import sys
-sys.setrecursionlimit(int(1e9))
 
-m = defaultdict(list)
+cnt = defaultdict(int)
 puzzles = []
-with open('example.txt') as input:
-    id, shape = 0, []
-    for s in input:
-        s = s.strip()
-        if ':' in s:
-            tokens = [tok for tok in s.split(':') if len(tok)]
-            if len(tokens) == 1:
-                id = int(tokens[0])
-            if len(tokens) == 2:
-                dimensions, ids = s.split(':')
-                cols, rows = map(int, dimensions.split('x'))
-                ids = [int(id) for id in ids.split(' ') if len(id)]
-                puzzles.append((rows, cols, ids))
-        elif len(s):
-            shape.append(list(s))
-        else:
-            m[id].append(shape); shape = []
+with open('input.txt') as input:
+    text = input.read()
+    chunks = text.split('\n\n')
+    for chunk in chunks:
+        lines = chunk.splitlines()
+        if lines[0].endswith(':'):  # shape
+            id = int(lines[0][:-1])
+            cnt[id] = sum(int(c == '#') for line in lines for c in line)  # shape id '#' count
+        else:  # puzzles
+            for line in lines:
+                dims, ids = line.split(':')  # dimensions MxN and list of shape ids
+                M, N = map(int, dims.split('x'))
+                ids = list(map(int, ids.split()))
+                puzzles.append((M, N, ids))
 
-def pretty_print(shape):
-    for row in shape:
-        print(''.join(row))
-    print()
-
-def rotate(shape):
-    rotated = [['.'] * 3 for _ in range(3)]
-    for i in range(3):
-        for j in range(3):
-            rotated[j][3 - 1 - i] = shape[i][j]
-    return rotated
-
-key = lambda shape: ','.join(''.join(row) for row in shape)
-
-for id, shapes in m.items():
-    rotated, seen = [], set()
-    for shape in shapes:
-        seen.add(key(shape))
-        for _ in range(3):
-            shape = rotate(shape)
-            if key(shape) not in seen:
-                rotated.append(shape); seen.add(key(shape))
-    shapes.extend(rotated)
-
-# for id, shapes in m.items():
-#     print(f'id: {id} has {len(shapes)} shapes')
-#     for shape in shapes:
-#         pretty_print(shape)
-
-def add(A, i, j, shape):
-    M, N = len(A), len(A[0])
-    if not (i + 3 <= M) or not (j + 3 <= N):
-        return False
-    for u in range(3):
-        for v in range(3):
-            A[i + u][j + v] = shape[u][v]
-    return True
-
-def remove(A, i, j, shape):
-    M, N = len(A), len(A[0])
-    if not (i + 3 <= M) or not (j + 3 <= N):
-        return False
-    ok = True
-    for u in range(3):
-        for v in range(3):
-            if A[i + u][j + v] == '#' and shape[u][v] == '.':  # shape must have corrsponding #
-                ok = False
-    if not ok:
-        return False  # mismatch between A and shape to remove at i,j
-    for u in range(3):
-        for v in range(3):
-            A[i + u][j + v] = '.' if shape[u][v] == '#' else A[i + u][j + v]
-    return True
-
+part1 = 0
+ratio = 1.2  # suboptimal packing overhead per count of '#' in each shape, ie. ratio == 1.0 if we can perfectly pack
 for puzzle in puzzles:
-    M, N, need = puzzle
-    A = [['.'] * N for _ in range(M)]
-    def go(i, j, id):
-        if j == N: # wrap around to next row
-            return go(i + 1, 0, id)
-        if id == len(need): # all shape id we need have been placed in A
-            return True
-        if not need[id]:
-            return go(0, 0, id + 1)
-        include, exclude = False, False
-        for shape in m[id]:
-            if add(A, i, j, shape):
-                need[id] -= 1
-                if go(i, j + 1, id):
-                    include = True
-                need[id] += 1
-                if not remove(A, i, j, shape):
-                    assert('cannot remove shape added for {id}:\n{pretty_print(shape)}')
-        exclude = go(i, j + 1, id) # move on to next cell
-        return include or exclude
-    if go(0, 0, 0):
-        print('ok')
-    else:
-        print('ng')
+    M, N, ids = puzzle
+    have = M * N
+    need = ratio * sum(cnt[id] * quantity for id, quantity in enumerate(ids))
+    part1 += int(need <= have)  # do we have what we need?
+print(f'part 1: {part1}')
+# part 1: 406
