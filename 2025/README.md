@@ -500,7 +500,7 @@ print(f'part 1: {go()}')
 # part 1: 466
 ```
 
-## [Day 12: Christmas Tree Farm]((https://adventofcode.com/2025/day/12)
+## [Day 12: Christmas Tree Farm](https://adventofcode.com/2025/day/12)
 
 ```python
 #
