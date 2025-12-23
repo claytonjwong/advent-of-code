@@ -5,7 +5,7 @@
 from collections import defaultdict, deque
 
 E = defaultdict(set)  # edges
-with open('example.txt') as input:
+with open('input.txt') as input:
     for s in input:
         beg, ends = s.strip().split(':')
         for end in ends.split(' '):
@@ -13,8 +13,14 @@ with open('example.txt') as input:
 
 S = 'you'  # start
 T = 'out'  # target
-def go(u = S):
-    return 1 if u == T else sum(go(v) for v in E[u])
-print(f'part 1: {go()}')
+q, seen = deque([S]), set([S])
+dp = defaultdict(int) # let dp[v] denote the number of ways to reach vertex v
+dp[S] = 1  # there is 1 way to reach start S
+while q:
+    u = q.popleft()
+    for v in E[u]:  # process each edge u -> v
+        dp[v] += dp[u]
+        if v not in seen:
+            q.append(v); seen.add(v)
 
-# part 1: 466
+print(f'part 1: {dp[T]}')
