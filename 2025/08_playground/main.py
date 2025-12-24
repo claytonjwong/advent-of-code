@@ -45,13 +45,13 @@ for _ in range(1000):
     union(i, j)
 for i in range(N):
     find(i)
-top3 = lambda: reduce(lambda a, b: a * b, sorted(Counter(P).values())[-3:])
-print(f'part 1: {top3()}')
+top3 = lambda: reduce(lambda a, b: a * b, sorted(Counter(P).values())[-3:])  # count per disjoint set's parent representative
+print(f'part 1: {top3()}')  # product of largest 3 connected component sizes
 
 while 1 < connected_components():
     _, i, j = heappop(q)
     union(i, j)
-print(f'part 2: {A[i][0] * A[j][0]}')
+print(f'part 2: {A[i][0] * A[j][0]}')  # multiply X-coords of the last two connected components with parent representatives i and j respectively
 
 # part 1: 103488
 # part 2: 8759985540
