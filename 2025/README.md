@@ -477,22 +477,30 @@ print(f'part 2: {part2}')
 ## [Day 11: Reactor](https://adventofcode.com/2025/day/11)
 
 ```python
-from collections import defaultdict, deque
+from collections import defaultdict
+from functools import cache
 
 E = defaultdict(set)  # edges
-with open('example.txt') as input:
+with open('input.txt') as input:
     for s in input:
         beg, ends = s.strip().split(':')
         for end in ends.split(' '):
             E[beg].add(end)
 
-S = 'you'  # start
-T = 'out'  # target
-def go(u = S):
-    return 1 if u == T else sum(go(v) for v in E[u])
-print(f'part 1: {go()}')
+@cache
+def go(u, target):
+    return 1 if u == target else sum(go(v, target) for v in E[u])
+
+part1 = go('you', 'out')
+print(f'part 1: {part1}')
+
+part2 = go('svr', 'fft') \
+      * go('fft', 'dac') \
+      * go('dac', 'out')
+print(f'part 2: {part2}')
 
 # part 1: 466
+# part 2: 549705036748518
 ```
 
 ## [Day 12: Christmas Tree Farm](https://adventofcode.com/2025/day/12)

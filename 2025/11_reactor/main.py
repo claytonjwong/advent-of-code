@@ -1,8 +1,8 @@
 #
 # https://adventofcode.com/2025/day/11
 #
-
-from collections import defaultdict, deque
+from collections import defaultdict
+from functools import cache
 
 E = defaultdict(set)  # edges
 with open('input.txt') as input:
@@ -11,16 +11,17 @@ with open('input.txt') as input:
         for end in ends.split(' '):
             E[beg].add(end)
 
-S = 'you'  # start
-T = 'out'  # target
-q, seen = deque([S]), set([S])
-dp = defaultdict(int) # let dp[v] denote the number of ways to reach vertex v
-dp[S] = 1  # there is 1 way to reach start S
-while q:
-    u = q.popleft()
-    for v in E[u]:  # process each edge u -> v
-        dp[v] += dp[u]
-        if v not in seen:
-            q.append(v); seen.add(v)
+@cache
+def go(u, target):
+    return 1 if u == target else sum(go(v, target) for v in E[u])
 
-print(f'part 1: {dp[T]}')
+part1 = go('you', 'out')
+print(f'part 1: {part1}')
+
+part2 = go('svr', 'fft') \
+      * go('fft', 'dac') \
+      * go('dac', 'out')
+print(f'part 2: {part2}')
+
+# part 1: 466
+# part 2: 549705036748518
