@@ -24,7 +24,6 @@ def union(a, b):
     a = find(a)
     b = find(b)
     P[a] = b  # 🎲 arbitrary choice
-    return a != b
 
 def connected_components():
     for i in range(N):
